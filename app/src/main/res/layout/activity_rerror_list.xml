@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/title_back"
+        layout="@layout/title_back_header" />
+
+    <ImageView
+        android:id="@+id/iv_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:layout_below="@id/title_back"
+        android:background="@mipmap/iv_rerror_header" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/error_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/iv_header"
+        android:layout_marginBottom="@dimen/y80"></androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tv_submit_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y50"
+        android:layout_marginBottom="@dimen/y30"
+        android:background="@drawable/region_detail_bg"
+        android:paddingLeft="@dimen/x80"
+        android:paddingTop="@dimen/y10"
+        android:paddingRight="@dimen/x80"
+        android:paddingBottom="@dimen/y10"
+        android:text="返回巡检页面"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/x16" />
+
+</RelativeLayout>

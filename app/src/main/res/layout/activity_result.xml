@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultActivity">
+
+    <RelativeLayout
+        android:id="@+id/relay_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_title_header"
+        android:paddingBottom="@dimen/y10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y10"
+            android:text="本次巡检完成"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:id="@+id/tv_success"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/y10"
+            android:layout_marginRight="@dimen/x20"
+            android:text="完成"
+            android:textColor="@color/log_colot"
+            android:textSize="@dimen/x14" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y1"
+        android:layout_below="@id/relay_result"
+        android:background="@color/color_lien" />
+
+    <ImageView
+        android:id="@+id/img_sc"
+        android:layout_width="@dimen/x80"
+        android:layout_height="@dimen/y80"
+        android:layout_below="@id/relay_result"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y40"
+        android:background="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_sc_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_sc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y10"
+        android:text="恭喜本次巡检完成"
+        android:textSize="@dimen/x22" />
+
+    <LinearLayout
+        android:id="@+id/lin_sc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_sc_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y20"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/x15"
+            android:layout_height="@dimen/y15"
+            android:layout_marginLeft="@dimen/x50"
+            android:background="@mipmap/iv_succecc_img" />
+
+        <TextView
+            android:id="@+id/tv_success_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/x20"
+            android:text="@string/result_time" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lin_sc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y20"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/x15"
+            android:layout_height="@dimen/y15"
+            android:layout_marginLeft="@dimen/x50"
+            android:background="@mipmap/iv_succecc_img" />
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/x20"
+            android:text="@string/result_error_num" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_error"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y60"
+        android:background="@drawable/result_suess_bg"
+        android:paddingLeft="@dimen/x10"
+        android:paddingTop="@dimen/y5"
+        android:paddingRight="@dimen/x10"
+        android:paddingBottom="@dimen/y5"
+        android:text="结束本次巡检" />
+
+
+</RelativeLayout>

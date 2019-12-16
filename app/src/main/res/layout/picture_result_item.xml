@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <View
+        android:id="@+id/iw_switch_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y1"
+        android:layout_marginTop="@dimen/y15"
+        android:background="@color/color_divider" />
+
+    <RelativeLayout
+        android:id="@+id/rl_switch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y60"
+        android:layout_below="@id/iw_switch_top"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/iv_switch_edit"
+            android:layout_width="@dimen/x17"
+            android:layout_height="@dimen/y15"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:background="@mipmap/iv_edit" />
+
+        <LinearLayout
+            android:id="@+id/linear_switch_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginRight="@dimen/x110"
+            android:layout_toRightOf="@id/iv_switch_edit"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_switch_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电源开关"
+                android:textSize="@dimen/x10" />
+
+            <EditText
+                android:id="@+id/tv_switch_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y5"
+                android:background="@null"
+                android:textSize="@dimen/x10" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_switch_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:layout_marginRight="@dimen/x10">
+
+            <TextView
+                android:id="@+id/tv_error_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/region_see_backgrount"
+                android:paddingLeft="@dimen/x10"
+                android:paddingTop="@dimen/y5"
+                android:paddingRight="@dimen/x10"
+                android:paddingBottom="@dimen/y5"
+                android:text="异常"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/x12" />
+
+            <TextView
+                android:id="@+id/tv_nromal_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x5"
+                android:background="@drawable/region_bg"
+                android:paddingLeft="@dimen/x10"
+                android:paddingTop="@dimen/y5"
+                android:paddingRight="@dimen/x10"
+                android:paddingBottom="@dimen/y5"
+                android:text="正常"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/x12" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relay_switch_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/x10">
+
+            <TextView
+                android:id="@+id/tv_switch_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x5"
+                android:layout_marginTop="@dimen/y5"
+                android:text="14:00已完成巡检"
+                android:textSize="@dimen/x10" />
+
+            <LinearLayout
+                android:id="@+id/lin_switch_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_switch_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y3"
+                    android:text="异常"
+                    android:textColor="@color/color_see"
+                    android:textSize="@dimen/x10" />
+
+                <TextView
+                    android:id="@+id/tv_region_switch_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y3"
+                    android:text="巡检人：小亮"
+                    android:textColor="@color/color_region_name"
+                    android:textSize="@dimen/x10" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_detail_switch_see"
+                android:layout_width="@dimen/x35"
+                android:layout_height="@dimen/y20"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x5"
+                android:layout_toRightOf="@id/lin_switch_details"
+                android:background="@drawable/region_bg"
+                android:gravity="center"
+                android:text="查看"
+                android:textColor="@color/color_white" />
+            <!--<View-->
+                <!--android:id="@+id/tv_detail_switch_view"-->
+                <!--android:layout_width="@dimen/x35"-->
+                <!--android:layout_height="@dimen/y20"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginLeft="@dimen/x5"-->
+                <!--android:layout_toRightOf="@id/lin_switch_details"-->
+                <!--android:background="@drawable/region_bg"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="@color/color_white" />-->
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="log_colot">#1ABC9C</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_ed">#C4C4C4</color>
+    <color name="color_lien">#E4E4E4</color>
+    <color name="color_tv_background">#F3F3F3</color>
+    <color name="color_no_in">#999999</color>
+    <color name="color_shape_noin">#FFEEE6</color>
+    <color name="color_stroke_noin">#FFDDCC</color>
+    <color name="tv_color_background">#CCCCCC</color>
+    <color name="color_region_name">#FF9900</color>
+    <color name="color_see">#F04844</color>
+    <color name="color_title_header">#F9F9F9</color>
+    <color name="color_into_region">#CCFFCC</color>
+    <color name="color_divider">#F2F2F2</color>
+    <color name="color_f5f5f5">#f5f5f5</color>
+    <color name="color_3a3a3a">#3a3a3a</color>
+    <color name="color_d69867">#d69867</color>
+    <color name="color_888888">#888888</color>
+    <color name="color_4c4c4c">#4c4c4c</color>
+    <color name="color_black">#000000</color>
+    <color name="color_f6">#f6f6f6</color>
+</resources>

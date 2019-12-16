@@ -1,0 +1,27 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--提交巡检结果-->
+    <style name="SubmitResult">
+        <item name="android:paddingLeft">@dimen/x80</item>
+        <item name="android:paddingTop">@dimen/y10</item>
+        <item name="android:paddingRight">@dimen/x80</item>
+        <item name="android:paddingBottom">@dimen/y10</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/x16</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+    <style name="main_menu_photo_anim">
+        <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
+    </style>
+</resources>

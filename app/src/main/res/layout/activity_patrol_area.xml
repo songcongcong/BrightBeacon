@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PatrolAreaActivity">
+
+    <include
+        android:id="@+id/tv_title"
+        layout="@layout/title_header" />
+
+    <TextView
+        android:id="@+id/tv_region"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/Patrol_region"
+        android:textSize="15sp" />
+
+    <CheckBox
+        android:id="@+id/tv_scan"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/tv_region"
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/ic_launcher"
+        android:button="@null" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/area_recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_scan"
+        android:layout_marginBottom="@dimen/y70"
+        android:fitsSystemWindows="true"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_submit_result"
+        style="@style/SubmitResult"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y50"
+        android:layout_marginBottom="@dimen/y30"
+        android:background="@drawable/region_detail_bg"
+        android:text="@string/tv_submit_result" />
+</RelativeLayout>

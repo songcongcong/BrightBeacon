@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y300">
+
+    <TextView
+        android:id="@+id/camera_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/y20"
+        android:paddingTop="@dimen/y20"
+        android:text="人脸识别"
+        android:textSize="@dimen/x14" />
+
+    <View
+        android:id="@+id/iv_view"
+        android:layout_width="@dimen/x20"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" />
+
+    <ImageView
+        android:id="@+id/camera_back"
+        android:layout_width="@dimen/x15"
+        android:layout_height="@dimen/y15"
+        android:layout_alignBottom="@id/camera_title"
+        android:layout_toLeftOf="@id/iv_view"
+        android:background="@mipmap/iv_green_back"
+        android:paddingTop="@dimen/y20"
+        android:paddingRight="@dimen/x20" />
+
+    <SurfaceView
+    android:id="@+id/sup_sufview"
+    android:layout_width="@dimen/x200"
+    android:layout_height="@dimen/y170"
+    android:layout_below="@id/camera_title"
+    android:layout_centerInParent="true"
+    android:layout_marginTop="@dimen/y20"
+    android:clickable="true"
+    android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sup_sufview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y20"
+        android:background="@drawable/region_bg"
+        android:gravity="center"
+        android:paddingLeft="@dimen/x20"
+        android:paddingTop="@dimen/y10"
+        android:paddingRight="@dimen/x20"
+        android:paddingBottom="@dimen/y10"
+        android:text="开始检测"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/x14" />
+</RelativeLayout>

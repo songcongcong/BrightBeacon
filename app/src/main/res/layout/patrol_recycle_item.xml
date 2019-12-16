@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/y15">
+
+        <RelativeLayout
+            android:id="@+id/region_relayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/lin_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/color_tv_background"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/color_lien" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="@dimen/x10"
+                    android:paddingTop="@dimen/y5"
+                    android:paddingBottom="@dimen/y5"
+                    android:textSize="@dimen/x16" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/color_lien" />
+
+                <LinearLayout
+                    android:id="@+id/linear_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/x10"
+                    android:paddingRight="@dimen/x10">
+
+                    <LinearLayout
+                        android:id="@+id/lin_region"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y10"
+                        android:background="@drawable/login_bg_into"
+                        android:focusable="false">
+
+                        <ImageView
+                            android:id="@+id/iv_img"
+                            android:layout_width="@dimen/x10"
+                            android:layout_height="@dimen/y10"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:background="@mipmap/iv_green_back"
+                            android:paddingTop="@dimen/y5"
+                            android:paddingBottom="@dimen/y5" />
+
+                        <TextView
+                            android:id="@+id/tv_account_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/x5"
+                            android:gravity="center"
+                            android:paddingTop="@dimen/y5"
+                            android:paddingBottom="@dimen/y5"
+                            android:text="暂未进入"
+                            android:textColor="@color/color_no_in"
+                            android:textSize="@dimen/x12" />
+                    </LinearLayout>
+
+
+                    <CheckBox
+                        android:id="@+id/tv_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y5"
+                        android:layout_marginBottom="@dimen/y10"
+                        android:background="@drawable/tv_backgrount"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/x10"
+                        android:paddingTop="@dimen/y5"
+                        android:paddingBottom="@dimen/y5"
+                        android:text="开始巡检"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/x12"
+                        android:button="@null"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y1"
+                    android:background="@color/color_lien" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/lin_view"
+                android:background="@color/color_lien" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/lin_view"
+                android:layout_alignParentRight="true"
+                android:background="@color/color_lien" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10">
+
+            <TextView
+                android:id="@+id/tv_no_region"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/region_no"
+                android:textSize="@dimen/x14" />
+
+            <TextView
+                android:id="@+id/tv_no_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_no_region"
+                android:layout_marginTop="@dimen/y10"
+                android:text="@string/no_state"
+                android:textColor="@color/log_colot"
+                android:textSize="@dimen/x14" />
+
+            <TextView
+                android:id="@+id/tv_region_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_no_state"
+                android:layout_marginTop="@dimen/y10"
+                android:text="@string/region_name"
+                android:textColor="@color/color_region_name"
+                android:textSize="@dimen/x14" />
+
+
+            <TextView
+                android:id="@+id/tv_see_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tv_region_name"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="@dimen/y10"
+                android:background="@drawable/region_see_backgrount"
+                android:paddingLeft="@dimen/x8"
+                android:paddingTop="@dimen/y5"
+                android:paddingRight="@dimen/x8"
+                android:paddingBottom="@dimen/y5"
+                android:text="@string/tv_see"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/x16"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

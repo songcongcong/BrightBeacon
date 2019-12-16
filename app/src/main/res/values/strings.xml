@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">易巡</string>
+    <string name="msg_network_error">网络错误,请重试</string>
+    <string name="msg_unknown_error">未知错误,请重试</string>
+    <string name="loading">正在加载中...</string>
+    <string name="commen_notmake">功能尚未上线,敬请期待...</string>
+    <!--登录页面-->
+    <string name="applay_name">易巡APP</string>
+    <string name="login_account">登陆账号</string>
+    <string name="login_input_pwd">请输入密码</string>
+    <string name="login">登陆</string>
+
+    <string name="Patrol_region">共有%1$d个区域，目前已巡检%2$d个区域</string>
+    <string name="region_data">已完成巡检</string>
+    <string name="region_abnormal">异常</string>
+    <string name="region_no">暂未巡检</string>
+    <string name="region_name">巡检人：%s</string>
+    <string name="other_regions">其他区域</string>
+    <string name="no_state">暂无状态</string>
+    <string name="tv_see">查看</string>
+    <string name="title_patrol_region">巡检区域</string>
+    <string name="tv_into">进入%s</string>
+    <string name="no_normal">无异常</string>
+    <string name="no_abnormal">异常</string>
+    <string name="cp_open_review_add">添加</string>
+    <string name="result_time">本次巡检时长：%s钟</string>
+    <string name="result_error_num">本次共检测出&lt;font color=\"#F04844\"&gt;%1$d&lt;/font&gt;处异常，请及时处理！</string>
+    <string name="tv_error_detail">异常详情</string>
+    <string name="tv_submit_result">提交巡检结果</string>
+</resources>
