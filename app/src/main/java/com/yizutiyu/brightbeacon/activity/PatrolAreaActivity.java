@@ -337,11 +337,9 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
                     beaconManager.addMonitor(monitor);
                     beaconManager.startRanging();
                     startMonit();
-                    Log.d("song", "resume---列表请求成功:" + mList.get(i).getBluetoothKey());
                 }
             }
             mAdapter.notifyDataSetChanged();
-            Log.d("song", "shuaxin:");
         }
         Log.d("song", "resume:");
     }
@@ -355,6 +353,9 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
     @Override
     protected void onPause() {
         super.onPause();
+        beaconManager.stopMonitoring();
+        beaconManager.setBeaconMonitorListener(null);
+        beaconManager.removeAllMonitor();
         Log.d("song", "onPause");
     }
 
@@ -372,9 +373,7 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
         ContensUtils.removeFileAppsKey(this, config, "parameslist");
         // 存放异常的图片
         ContensUtils.removeFileAppsKey(this, config, "errorImglist");
-//        if (mAdapter != null) {
-//            mAdapter.getMap().clear();
-//        }
+
         Log.d("song", "onDestroy");
     }
 
@@ -391,10 +390,10 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
         mAdapter.setDate(regionListInfo);
         setTitleUi(null, mList.size());
         areaRecycleView.setAdapter(mAdapter);
-        if (mList != null) {
-            for (int i = 0; i < mList.size(); i++) {
+        if (regionListInfo != null) {
+            for (int i = 0; i < regionListInfo.size(); i++) {
                 // 添加一个进入区域的设备
-                monitor = new BRTMonitor(mList.get(i).getBluetoothKey(), null, null, null, true, true);
+                monitor = new BRTMonitor(regionListInfo.get(i).getBluetoothKey(), null, null, null, true, true);
                 beaconManager.addMonitor(monitor);
                 beaconManager.startRanging();
                 startMonit();
@@ -406,12 +405,15 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
 
     @Override
     public void submitResuleSuccess(SuccessInfo successInfo) {
+        // 提交巡检成功清除已巡检的数据
+        if (mAdapter != null) {
+            mAdapter.getMap().clear();
+        }
         // 跳转到结束页面，将异常数量和巡检的时间传过去
         String timeDifference = TimeUtil.getTimeDifference(startTime, endTime);
         Intent intent = new Intent(PatrolAreaActivity.this, ResultActivity.class);
         intent.putExtra("data", timeDifference);
         intent.putIntegerArrayListExtra("errornum", (ArrayList<Integer>) mIndexs);
-        Log.d("song","结果："+mIndexs+",:"+timeDifference);
         startActivity(intent);
         finish();
     }
