@@ -39,11 +39,9 @@ import com.google.gson.Gson;
 import com.yizutiyu.brightbeacon.R;
 import com.yizutiyu.brightbeacon.adapter.PatrolAdapter;
 import com.yizutiyu.brightbeacon.base.BaseMvpActivity;
-import com.yizutiyu.brightbeacon.eventbus.ChangeStateEventBus;
 import com.yizutiyu.brightbeacon.eventbus.FileEventBus;
 import com.yizutiyu.brightbeacon.eventbus.RegionNumEventBus;
 import com.yizutiyu.brightbeacon.face.MHFace;
-import com.yizutiyu.brightbeacon.info.BrtBeaconInfo;
 import com.yizutiyu.brightbeacon.info.FaceDateMessageInfo;
 import com.yizutiyu.brightbeacon.info.RegionListInfo;
 import com.yizutiyu.brightbeacon.info.SuccessInfo;
@@ -54,10 +52,8 @@ import com.yizutiyu.brightbeacon.mvp.ui.RerrorListActivity;
 import com.yizutiyu.brightbeacon.mvp.ui.ResultActivity;
 import com.yizutiyu.brightbeacon.mvp.ui.ScanActivity;
 import com.yizutiyu.brightbeacon.mvp.uiinterface.PatrolUiInterface;
-import com.yizutiyu.brightbeacon.sqlite.DatabaseUtils;
 import com.yizutiyu.brightbeacon.surfaceview.CameraSurfaceHolder;
 import com.yizutiyu.brightbeacon.utils.ContensUtils;
-import com.yizutiyu.brightbeacon.utils.OkHttp3Util;
 import com.yizutiyu.brightbeacon.utils.SPUtils;
 import com.yizutiyu.brightbeacon.utils.TimeUtil;
 
@@ -66,7 +62,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -354,8 +349,8 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
     protected void onPause() {
         super.onPause();
         beaconManager.stopMonitoring();
-        beaconManager.setBeaconMonitorListener(null);
-        beaconManager.removeAllMonitor();
+//        beaconManager.setBeaconMonitorListener(null);
+//        beaconManager.removeAllMonitor();
         Log.d("song", "onPause");
     }
 
