@@ -15,6 +15,11 @@ import org.greenrobot.eventbus.Subscribe;
  * @data 2019/12/18
  */
 public class TimeService extends Service {
+    /**
+     * onBind
+     * @param intent intent
+     * @return IBinder
+     */
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -34,10 +39,13 @@ public class TimeService extends Service {
         EventBus.getDefault().register(this);
     }
 
-    // 刷新标题UI
-    @Subscribe(sticky = true )
+    /**
+     * 刷新标题UI
+     * @param serviceEventBus serviceEventBus
+     */
+    @Subscribe(sticky = true)
     public void onMessageTimerEvent(TimerServiceEventBus serviceEventBus) {
-        Log.d("song", "接收数据：:"+serviceEventBus);
+        Log.d("song", "接收数据：:" + serviceEventBus);
         if (serviceEventBus != null) {
             try {
 //            while (true) {

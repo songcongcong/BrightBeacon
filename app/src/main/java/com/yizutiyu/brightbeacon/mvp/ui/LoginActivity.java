@@ -19,13 +19,11 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yizutiyu.brightbeacon.R;
-import com.yizutiyu.brightbeacon.activity.MainActivity;
 import com.yizutiyu.brightbeacon.activity.PatrolAreaActivity;
 import com.yizutiyu.brightbeacon.base.BaseMvpActivity;
 import com.yizutiyu.brightbeacon.info.LoginInfo;
 import com.yizutiyu.brightbeacon.mvp.impl.LoginPresenterImpl;
 import com.yizutiyu.brightbeacon.mvp.uiinterface.LoginUiInterface;
-import com.yizutiyu.brightbeacon.utils.AppUtils;
 import com.yizutiyu.brightbeacon.utils.ContensUtils;
 import com.yizutiyu.brightbeacon.utils.ToastUtils;
 
@@ -34,37 +32,79 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
+/**
+ * LoginActivity
+ */
 public class LoginActivity extends BaseMvpActivity<LoginPresenterImpl> implements LoginUiInterface {
-
+    /**
+     * TAG
+     */
     private static final String TAG = "LoginActivity";
-    // 注解presenter层
+    /**
+     * 注解presenter层
+     */
     @Inject
     LoginPresenterImpl impl;
+    /**
+     * ivBack
+     */
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    /**
+     * ivCircle
+     */
     @BindView(R.id.iv_circle)
     SimpleDraweeView ivCircle;
+    /**
+     * relayoutUser
+     */
     @BindView(R.id.relayout_user)
     RelativeLayout relayoutUser;
+    /**
+     * userName
+     */
     @BindView(R.id.user_name)
     TextView userName;
+    /**
+     * edAccount
+     */
     @BindView(R.id.ed_account)
     EditText edAccount;
+    /**
+     * linearAccount
+     */
     @BindView(R.id.linear_account)
     LinearLayout linearAccount;
+    /**
+     * linear
+     */
     @BindView(R.id.linear)
     RelativeLayout linear;
+    /**
+     * edPwd
+     */
     @BindView(R.id.ed_pwd)
     EditText edPwd;
+    /**
+     * linearPassword
+     */
     @BindView(R.id.linear_password)
     LinearLayout linearPassword;
+    /**
+     * linearPwd
+     */
     @BindView(R.id.linear_pwd)
     RelativeLayout linearPwd;
+    /**
+     * tvLogin
+     */
     @BindView(R.id.tv_login)
     TextView tvLogin;
 
 
-    // 定位权限
+    /**
+     * 定位权限
+     */
     public static final int CAMERA_PERMISSION_REQUEST_CODE = 101;
 
     @Override
@@ -88,8 +128,10 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenterImpl> implement
     protected void init() {
         //登录
         subscribeClick(tvLogin, o -> {
-            if (!TextUtils.isEmpty(edAccount.getText().toString().trim()) && !TextUtils.isEmpty(edPwd.getText().toString().trim())) {
-                impl.normalLogin(edAccount.getText().toString().trim(), edPwd.getText().toString().trim(), this);
+            if (!TextUtils.isEmpty(edAccount.getText().toString().trim())
+                    && !TextUtils.isEmpty(edPwd.getText().toString().trim())) {
+                impl.normalLogin(edAccount.getText().toString().trim(),
+                        edPwd.getText().toString().trim(), this);
             } else {
                 ToastUtils.showToast("账号密码不能为空");
             }
@@ -117,12 +159,14 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenterImpl> implement
         super.onResume();
         if (Build.VERSION.SDK_INT >= 23) {
             //检测是否授权
-            if (ContensUtils.checkAndApplyfPermissionActivity(LoginActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, CAMERA_PERMISSION_REQUEST_CODE)) {
+            if (ContensUtils.checkAndApplyfPermissionActivity(LoginActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, CAMERA_PERMISSION_REQUEST_CODE)) {
                 Log.e(TAG, "===========检查权限---用户已经拥有相机这个权限了");
 
             } else {
                 Log.e(TAG, "===========检查权限---弹出系统的用户没有相机这个权限");
-                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, CAMERA_PERMISSION_REQUEST_CODE);
+                ActivityCompat.requestPermissions(LoginActivity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, CAMERA_PERMISSION_REQUEST_CODE);
             }
         }
     }
@@ -133,7 +177,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenterImpl> implement
 
         if (ContensUtils.checkPermission(grantResults)) {
             if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
-                Log.e(TAG, "===========权限回调---用户同意了");//                    }
+                Log.e(TAG, "===========权限回调---用户同意了");
             }
         }
     }

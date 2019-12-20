@@ -3,7 +3,6 @@ package com.yizutiyu.brightbeacon.mvp.model;
 
 import android.content.Context;
 
-import com.example.retrofitmvplibrary.base.BaseResponse;
 import com.example.retrofitmvplibrary.retrofit.RetrofitSource;
 import com.example.retrofitmvplibrary.retrofit.RxHelper;
 import com.yizutiyu.brightbeacon.api.RetrofitApi;
@@ -18,12 +17,23 @@ import io.reactivex.Observable;
  */
 
 public class LogBiz {
+    /**
+     * LogBiz
+     */
     @Inject
-    public LogBiz(){}
+    public LogBiz() {
 
-    // 登录网络请求
-    public Observable<LoginInfo> normalLogin(String phone, String pwd, Context context){
-        return RetrofitSource.createApi(RetrofitApi.class,context)
+    }
+
+    /**
+     * 登录网络请求
+     * @param phone phone
+     * @param pwd pwd
+     * @param context context
+     * @return LoginInfo
+     */
+    public Observable<LoginInfo> normalLogin(String phone, String pwd, Context context) {
+        return RetrofitSource.createApi(RetrofitApi.class, context)
                 .normalLogin(phone, pwd)
                 .compose(RxHelper.rxSchedulerHelper());
     }

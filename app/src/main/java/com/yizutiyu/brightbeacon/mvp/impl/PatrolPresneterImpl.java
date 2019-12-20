@@ -2,13 +2,11 @@ package com.yizutiyu.brightbeacon.mvp.impl;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.EditText;
 
 import com.example.retrofitmvplibrary.base.BaseResponse;
 import com.example.retrofitmvplibrary.retrofit.BaseObserver;
 import com.yizutiyu.brightbeacon.base.BasePresenterImpl;
 import com.yizutiyu.brightbeacon.info.FaceDateMessageInfo;
-import com.yizutiyu.brightbeacon.info.LoginInfo;
 import com.yizutiyu.brightbeacon.info.RegionListInfo;
 import com.yizutiyu.brightbeacon.info.SuccessInfo;
 import com.yizutiyu.brightbeacon.mvp.implinterface.PatrolPresenter;
@@ -27,22 +25,35 @@ import io.reactivex.disposables.Disposable;
  * @data 2019/9/20
  */
 public class PatrolPresneterImpl extends BasePresenterImpl<PatrolUiInterface> implements PatrolPresenter {
-    // 获取Biz层的对象
+    /**
+     * 获取Biz层的对象
+     */
     @Inject
     PatrolBiz biz;
 
-    // 初始化p层的方法
+    /**
+     * 初始化p层的方法
+     */
     @Inject
     public PatrolPresneterImpl() {
     }
 
-    // 定义Ui层对象
+    /**
+     * 定义Ui层对象
+     */
     PatrolUiInterface uiInterface;
 
+    /**
+     * setUiInterface
+     * @param uiInterface uiInterface
+     */
     public void setUiInterface(PatrolUiInterface uiInterface) {
         this.uiInterface = uiInterface;
     }
 
+    /**
+     * mDisposable
+     */
     private Disposable mDisposable;
 
     @Override
@@ -84,7 +95,8 @@ public class PatrolPresneterImpl extends BasePresenterImpl<PatrolUiInterface> im
     }
 
     @Override
-    public void submitSuccess(Context context, String message, String startTiem, String endTime, String state, String detail) {
+    public void submitSuccess(Context context, String message, String startTiem, String endTime,
+                              String state, String detail) {
         biz.submitResult(context, message, startTiem, endTime, state, detail)
                 .subscribe(new Observer<SuccessInfo>() {
                     @Override
@@ -122,7 +134,7 @@ public class PatrolPresneterImpl extends BasePresenterImpl<PatrolUiInterface> im
                     @Override
                     public void onNext(FaceDateMessageInfo faceDateMessageInfo) {
                         uiInterface.getFaceData(faceDateMessageInfo, position);
-                        Log.d("song", "人脸识别成功："+faceDateMessageInfo.isIs_exist());
+                        Log.d("song", "人脸识别成功：" + faceDateMessageInfo.isIs_exist());
                         mDisposable.dispose();
 
                     }

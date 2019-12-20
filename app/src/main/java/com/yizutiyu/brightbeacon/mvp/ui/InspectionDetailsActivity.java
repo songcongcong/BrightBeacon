@@ -3,7 +3,6 @@ package com.yizutiyu.brightbeacon.mvp.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,17 +33,34 @@ import butterknife.ButterKnife;
  * InspectionDetailsActivity
  */
 public class InspectionDetailsActivity extends BaseActivity {
-
+    /**
+     * ivHeaderBack
+     */
     @BindView(R.id.iv_header_back)
     ImageView ivHeaderBack;
+    /**
+     * relayBack
+     */
     @BindView(R.id.relay_back)
     RelativeLayout relayBack;
+    /**
+     * titleHeader
+     */
     @BindView(R.id.tv_back_header)
     TextView titleHeader;
+    /**
+     * ivLiean
+     */
     @BindView(R.id.iv_liean)
     View ivLiean;
+    /**
+     * recycleview
+     */
     @BindView(R.id.recycleview)
     RecyclerView recycleview;
+    /**
+     * tvDetailSuccess
+     */
     @BindView(R.id.tv_detail_success)
     TextView tvDetailSuccess;
     /**
@@ -131,6 +147,9 @@ public class InspectionDetailsActivity extends BaseActivity {
         init();
     }
 
+    /**
+     * 初始化数据
+     */
     private void init() {
         config = getSharedPreferences("config", MODE_PRIVATE);
         // 点击返回
@@ -157,7 +176,9 @@ public class InspectionDetailsActivity extends BaseActivity {
         //点击异常或正常
         adapter.setOnChilkLisener(new PictureAdapter.onChilkLisener() {
             @Override
-            public void OnLisener(LinearLayout linearLayout, RelativeLayout relativeLayout, TextView switchError, TextView mSee, TextView title, TextView content, int state, int position) {
+            public void OnLisener(LinearLayout linearLayout, RelativeLayout relativeLayout,
+                                  TextView switchError, TextView mSee, TextView title, TextView content,
+                                  int state, int position) {
                 // 点击异常
                 isMChilk = true;
                 mLinear = linearLayout;
@@ -172,7 +193,9 @@ public class InspectionDetailsActivity extends BaseActivity {
             }
 
             @Override
-            public void OnNormalLisener(LinearLayout linearLayout, RelativeLayout relativeLayout, TextView switchError, TextView mSee, TextView title, TextView content, int state, int position) {
+            public void OnNormalLisener(LinearLayout linearLayout, RelativeLayout relativeLayout,
+                                        TextView switchError, TextView mSee, TextView title, TextView content,
+                                        int state, int position) {
                 // 点击正常
                 isMChilk = true;
                 mTvTitle = title;
@@ -252,7 +275,10 @@ public class InspectionDetailsActivity extends BaseActivity {
     }
 
 
-    // 提交巡检的参数
+    /**
+     * 提交巡检的参数
+     * @param isError  isError
+     */
     public void setParmers(boolean isError) {
         MyHashMap<String> map = new MyHashMap<>();
         if (mTitle != null) {

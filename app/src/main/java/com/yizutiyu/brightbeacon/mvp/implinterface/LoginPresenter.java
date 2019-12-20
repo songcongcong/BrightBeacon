@@ -7,5 +7,11 @@ import android.content.Context;
  */
 
 public interface LoginPresenter {
+    /**
+     * normalLogin
+     * @param phone phone
+     * @param pwd pwd
+     * @param context context
+     */
     void normalLogin(String phone, String pwd, Context context);
 }

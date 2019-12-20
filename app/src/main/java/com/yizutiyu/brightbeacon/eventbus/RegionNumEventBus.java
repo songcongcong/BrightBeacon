@@ -9,14 +9,26 @@ public class RegionNumEventBus {
      */
     private int mNum;
 
+    /**
+     * RegionNumEventBus
+     * @param mNum mNum
+     */
     public RegionNumEventBus(int mNum) {
         this.mNum = mNum;
     }
 
+    /**
+     * getmNum
+     * @return int
+     */
     public int getmNum() {
         return mNum;
     }
 
+    /**
+     * setmNum
+     * @param mNum mNum
+     */
     public void setmNum(int mNum) {
         this.mNum = mNum;
     }

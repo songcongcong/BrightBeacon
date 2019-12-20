@@ -4,7 +4,11 @@ package com.yizutiyu.brightbeacon.custom;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class MyHashMap<K> extends HashMap<K,String> implements Serializable {
+/**
+ * MyHashMap 避免重复添加
+ * @param <K>
+ */
+public class MyHashMap<K> extends HashMap<K, String> implements Serializable {
 
     /**
      * 使用HashMap中containsKey判断key是否已经存在

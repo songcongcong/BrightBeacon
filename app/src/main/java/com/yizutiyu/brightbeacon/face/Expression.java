@@ -23,6 +23,6 @@ package com.yizutiyu.brightbeacon.face;
 *---------------------------------------------------------*
 * 2019年7月5日     cmj           v1.0.0               修改原因
 */
-public class Expression extends BaseFace{
+public class Expression extends BaseFace {
 
 }

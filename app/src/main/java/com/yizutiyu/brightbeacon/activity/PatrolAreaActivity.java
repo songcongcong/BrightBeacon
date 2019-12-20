@@ -77,15 +77,33 @@ import butterknife.BindView;
  * PatrolAreaActivity
  */
 public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> implements PatrolUiInterface {
+    /**
+     * TAG
+     */
     public static String TAG = "PatrolAreaActivity";
+    /**
+     * titleHeader
+     */
     @BindView(R.id.title_header)
     TextView titleHeader;
+    /**
+     * tvRegion
+     */
     @BindView(R.id.tv_region)
     TextView tvRegion;
+    /**
+     * tvScan
+     */
     @BindView(R.id.tv_scan)
     CheckBox tvScan;
+    /**
+     * areaRecycleView
+     */
     @BindView(R.id.area_recycleView)
     RecyclerView areaRecycleView;
+    /**
+     * tvSubmitResult
+     */
     @BindView(R.id.tv_submit_result)
     TextView tvSubmitResult;
     /**
@@ -134,7 +152,7 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
     /**
      * 标记状态回调
      */
-    private static final int FACE_SUCCESS = 100;//crop_small_picture
+    private static final int FACE_SUCCESS = 100; //crop_small_picture
     /**
      * 得到照相机的人脸数据
      */
@@ -182,15 +200,30 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
      * 标记查询只跳转一次
      */
     private boolean isIntent = false;
+
+    /**
+     * SharedPreferences
+     */
+    private SharedPreferences config;
+    /**
+     * 记录已完成巡检的次数
+     */
+    private int mRegionNum;
+
     /**
      * myHandler
      */
     private MyHandler myHanlder = new MyHandler(PatrolAreaActivity.this);
 
+    /**
+     *  MyHandler 防止内存泄露
+     */
     @SuppressLint("HandlerLeak")
     public class MyHandler extends Handler {
 
-        // 通过弱引用解决内存泄露问题
+        /**
+         * 通过弱引用解决内存泄露问题
+         */
         private WeakReference<PatrolAreaActivity> weakReference;
 
         /**
@@ -221,11 +254,7 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
         }
     }
 
-    private SharedPreferences config;
-    /**
-     * 记录已完成巡检的次数
-     */
-    private int mRegionNum;
+
 
     @Override
     protected PatrolPresneterImpl initInjector() {
@@ -277,12 +306,14 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
                 mStatePosition = position;
                 if (Build.VERSION.SDK_INT >= 23) {
                     //检测是否授权
-                    if (ContextCompat.checkSelfPermission(PatrolAreaActivity.this, CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(PatrolAreaActivity.this, CAMERA_PERMISSION)
+                            == PackageManager.PERMISSION_GRANTED) {
                         Log.e(TAG, "===========检查权限---用户已经拥有相机这个权限了");
                         getDialog(position);
                     } else {
                         Log.e(TAG, "===========检查权限---弹出系统的用户没有相机这个权限");
-                        ActivityCompat.requestPermissions(PatrolAreaActivity.this, new String[]{CAMERA_PERMISSION}, CAMERA_PERMISSION_REQUEST_CODE);
+                        ActivityCompat.requestPermissions(PatrolAreaActivity.this,
+                                new String[]{CAMERA_PERMISSION}, CAMERA_PERMISSION_REQUEST_CODE);
                     }
                 }
             }
@@ -294,7 +325,8 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
             public void onItemSeeChilk() {
 //                if (normalList != null) {
                 Intent intent = new Intent(PatrolAreaActivity.this, RerrorListActivity.class);
-//                    intent.putStringArrayListExtra("errorNormalList", (ArrayList<String>) normalList); // 将上传图片集合传给activity
+//              intent.putStringArrayListExtra("errorNormalList",
+//              (ArrayList<String>) normalList); // 将上传图片集合传给activity
                 startActivity(intent);
 //                }
             }
@@ -339,7 +371,9 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
         Log.d("song", "resume:");
     }
 
-    //开始添加 进入区域监听
+    /**
+     * 开始添加 进入区域监听
+     */
     private void startMonit() {
         beaconManager.setBeaconMonitorListener(monitorListener);
         beaconManager.startMonitoring();
@@ -351,7 +385,6 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
         beaconManager.stopMonitoring();
 //        beaconManager.setBeaconMonitorListener(null);
 //        beaconManager.removeAllMonitor();
-        Log.d("song", "onPause");
     }
 
     @Override
@@ -432,7 +465,9 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
     }
 
 
-    // 是否发现新的蓝牙设备监听
+    /**
+     * 是否发现新的蓝牙设备监听
+     */
     @SuppressLint("StringFormatMatches")
     private BRTBeaconManagerListener brtBeaconManagerListener = new BRTBeaconManagerListener() {
         @Override
@@ -449,10 +484,11 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
 //                            beaconManager.addMonitor(monitor);
 //                            beaconManager.setBeaconMonitorListener(monitorListener);
 //                            beaconManager.startRanging();
-////                            Log.d("song", "添加一个:" + mList.get(j).getBluetoothKey() + ",:" + brtBeaconList.toString());
-////                            Toast.makeText(PatrolAreaActivity.this, "添加：" + mList.get(j).getBluetoothKey(), Toast.LENGTH_LONG).show();
+////                            Toast.makeText(PatrolAreaActivity.this, "添加："
+//                                  + mList.get(j).getBluetoothKey(), Toast.LENGTH_LONG).show();
 ////                            } else {
-////                                Toast.makeText(PatrolAreaActivity.this, "已添加：" + mList.get(j).getBluetoothKey(), Toast.LENGTH_LONG).show();
+////                                Toast.makeText(PatrolAreaActivity.this, "已添加："
+//                                  + mList.get(j).getBluetoothKey(), Toast.LENGTH_LONG).show();
 ////                            }
 //                        }
 //                    }
@@ -484,7 +520,9 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
         }
     };
 
-    // 监听设备是否进入该区域
+    /**
+     * 监听设备是否进入该区域
+     */
     private BRTBeaconMonitorListener monitorListener = new BRTBeaconMonitorListener() {
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
@@ -517,7 +555,10 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
         }
     };
 
-    // 刷新标题UI
+    /**
+     * 刷新标题UI
+     * @param regionNumEventBus regionNumEventBus
+     */
     @Subscribe
     public void onMessageNumEvent(RegionNumEventBus regionNumEventBus) {
         if (regionNumEventBus != null) {
@@ -526,7 +567,10 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
         }
     }
 
-    // 检测人脸接受到的File文件
+    /**
+     * 检测人脸接受到的File文件
+     * @param fileEventBus fileEventBus
+     */
     @Subscribe
     public void onMessageEvent(FileEventBus fileEventBus) {
         if (fileEventBus.getFile() != null) {
@@ -535,10 +579,15 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
     }
 
 
-    // 刷新标题UI
+    /**
+     * 刷新标题UI
+     * @param regionNumEventBus regionNumEventBus
+     * @param count count
+     */
     private void setTitleUi(RegionNumEventBus regionNumEventBus, int count) {
         if (mList != null && regionNumEventBus != null) {
-            mTitleRegion = String.format(getResources().getString(R.string.Patrol_region), count, regionNumEventBus.getmNum());
+            mTitleRegion = String.format(getResources().getString(R.string.Patrol_region),
+                    count, regionNumEventBus.getmNum());
         } else {
             mTitleRegion = String.format(getResources().getString(R.string.Patrol_region), count, 0);
         }
@@ -546,7 +595,10 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
     }
 
 
-    // 弹出弹窗，检测人脸
+    /**
+     * 弹出弹窗，检测人脸
+     * @param position position
+     */
     private void getDialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = View.inflate(this, R.layout.camera_layout, null);
@@ -559,7 +611,6 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
             public void onClick(View view) {
                 alertDialog.dismiss();
                 if (!isSuccess) {
-//                    Log.d(TAG,"为")
                     mAdapter.setIsSucces(true);
                 } else {
                     mAdapter.setIsSucces(false);
@@ -580,16 +631,14 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
 //                                String userId = MHFace.addUser(mFile, "朱凯", "ezu_kj2");
 //                                MHFace.addUser(mFile, "朱凯", userId, "ezu_kj2");
                                 queryFaceUserId(mFile, alertDialog, position);
-                                Log.d("song", "查询");
+
                             } catch (Exception e) {
+                                e.printStackTrace();
+                                Log.d(TAG, "查询异常：" + e.toString());
                             }
                         }
                     }).start();
-                } else {
-                    Log.d("song", "查询:121212");
                 }
-
-
             }
         });
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -618,8 +667,9 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
 
     /**
      * 查询人脸信息根据人脸库中的用户id
-     *
-     * @param file
+     * @param file file
+     * @param dialog dialog
+     * @param position position
      */
     public void queryFaceUserId(ByteArrayOutputStream file, AlertDialog dialog, int position) {
 
@@ -637,11 +687,11 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
                                 String user_id = userInfo.getResult().getUser_list().get(i).getUser_id();
 //                        String ezu_kj2 = MHFace.deleteUser(user_id, "ezu_kj2");
 //                        Log.e(TAG, "删除之后：" +ezu_kj2);
-
                                 impl.getFaceDate(PatrolAreaActivity.this, user_id, position);
                             }
                         } catch (Exception e) {
-                            Log.d("song", "识别异常：" + e.toString());
+                            e.printStackTrace();
+                            Log.d(TAG, "识别异常：" + e.toString());
                         }
                     } else {
                         isIntent = false;
@@ -699,7 +749,8 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
      * @param grantResults grantResults
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (permissions[0].equals(CAMERA_PERMISSION)) {

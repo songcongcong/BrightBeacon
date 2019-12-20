@@ -15,9 +15,33 @@ import dagger.Component;
  */
 @Component (modules = ActivityModule.class)
 public interface ActivityCompontent {
+    /**
+     *
+     * @param mainActivity mainActivity
+     */
     void inject(MainActivity mainActivity);
+
+    /**
+     *
+     * @param loginActivity loginActivity
+     */
     void inject(LoginActivity loginActivity);
+
+    /**
+     *
+     * @param patrolAreaActivity patrolAreaActivity
+     */
     void inject(PatrolAreaActivity patrolAreaActivity);
+
+    /**
+     *
+     * @param scanActivity scanActivity
+     */
     void inject(ScanActivity scanActivity);
+
+    /**
+     *
+     * @param regionErrorActivity regionErrorActivity
+     */
     void inject(RegionErrorActivity regionErrorActivity);
 }

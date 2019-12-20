@@ -5,6 +5,9 @@ import android.os.Bundle;
 import com.yizutiyu.brightbeacon.R;
 import com.yizutiyu.brightbeacon.base.BaseActivity;
 
+/**
+ * MainActivity
+ */
 public class MainActivity extends BaseActivity {
 
     @Override

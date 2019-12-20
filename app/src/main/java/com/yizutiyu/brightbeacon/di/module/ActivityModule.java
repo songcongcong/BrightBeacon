@@ -11,14 +11,25 @@ import dagger.Provides;
  */
 @Module
 public class ActivityModule {
-
+    /**
+     * mActivity
+     */
     private AppCompatActivity mActivity;
 
-    public ActivityModule (AppCompatActivity activity) {
+    /**
+     * ActivityModule
+     * @param activity activity
+     */
+    public ActivityModule(AppCompatActivity activity) {
         this.mActivity = activity;
     }
+
+    /**
+     * provideActivity
+     * @return AppCompatActivity
+     */
     @Provides
-    public AppCompatActivity provideActivity () {
+    public AppCompatActivity provideActivity() {
         return mActivity;
     }
 

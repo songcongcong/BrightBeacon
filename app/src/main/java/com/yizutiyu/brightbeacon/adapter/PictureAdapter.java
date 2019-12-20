@@ -1,7 +1,5 @@
 package com.yizutiyu.brightbeacon.adapter;
 
-import android.content.pm.ResolveInfo;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -17,22 +15,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author
+ * @author scc
  * @data 2019/9/22
  */
 public class PictureAdapter extends BaseAdapter<RegionListInfo.ProjectListBean, BaseViewHolder> {
+    /**
+     * mFlagList
+     */
     private List<Integer> mFlagList = new ArrayList<>();
+
+    /**
+     * getmFlagList
+     * @return List<Integer>
+     */
     public List<Integer> getmFlagList() {
         return mFlagList;
     }
+
+    /**
+     * PictureAdapter
+     * @param layoutResId layoutResId
+     * @param data data
+     */
     public PictureAdapter(int layoutResId, List<RegionListInfo.ProjectListBean> data) {
         super(layoutResId, data);
     }
 
+    /**
+     * PictureAdapter
+     * @param data data
+     */
     public PictureAdapter(List<RegionListInfo.ProjectListBean> data) {
         super(data);
     }
 
+    /**
+     * PictureAdapter
+     * @param layoutResId      * @param
+     */
     public PictureAdapter(int layoutResId) {
         super(layoutResId);
     }
@@ -72,7 +92,8 @@ public class PictureAdapter extends BaseAdapter<RegionListInfo.ProjectListBean, 
             public void onClick(View view) {
                 item.setIsState(1);
                 if (onChilkLisener != null) {
-                    onChilkLisener.OnLisener(mLinNormal, mSwitchNormal, mSwitchError, mSee, mTitle, mTitleContent, item.getIsState(), position);
+                    onChilkLisener.OnLisener(mLinNormal, mSwitchNormal, mSwitchError,
+                            mSee, mTitle, mTitleContent, item.getIsState(), position);
                 }
                 mFlagList.add(position);
             }
@@ -88,7 +109,8 @@ public class PictureAdapter extends BaseAdapter<RegionListInfo.ProjectListBean, 
                 mSwitchError.setTextColor(mContext.getResources().getColor(R.color.log_colot));
                 mSee.setVisibility(View.INVISIBLE);
                 if (onChilkLisener != null) {
-                    onChilkLisener.OnNormalLisener(mLinNormal, mSwitchNormal, mSwitchError, mSee, mTitle, mTitleContent, item.getIsState(), position);
+                    onChilkLisener.OnNormalLisener(mLinNormal, mSwitchNormal, mSwitchError,
+                            mSee, mTitle, mTitleContent, item.getIsState(), position);
                 }
                 mFlagList.add(position);
             }
@@ -107,26 +129,69 @@ public class PictureAdapter extends BaseAdapter<RegionListInfo.ProjectListBean, 
     }
 
 
-    //点击条目监听
+    /**
+     * 点击条目监听
+     */
     private onChilkLisener onChilkLisener;
 
+    /**
+     * onChilkLisener
+     */
     public interface onChilkLisener {
-        void OnLisener(LinearLayout linearLayout, RelativeLayout relativeLayout, TextView switchError, TextView mSee, TextView title, TextView content, int state, int position);
+        /**
+         * OnLisener
+         * @param linearLayout linearLayout
+         * @param relativeLayout relativeLayout
+         * @param switchError switchError
+         * @param mSee mSee
+         * @param title title
+         * @param content content
+         * @param state state
+         * @param position position
+         */
+        void OnLisener(LinearLayout linearLayout, RelativeLayout relativeLayout,
+                       TextView switchError, TextView mSee, TextView title, TextView content, int state, int position);
 
-        void OnNormalLisener(LinearLayout linearLayout, RelativeLayout relativeLayout, TextView switchError, TextView mSee, TextView title, TextView content, int state, int position);
+        /**
+         * OnNormalLisener
+         * @param linearLayout linearLayout
+         * @param relativeLayout relativeLayout
+         * @param switchError switchError
+         * @param mSee mSee
+         * @param title title
+         * @param content content
+         * @param state state
+         * @param position position
+         */
+        void OnNormalLisener(LinearLayout linearLayout, RelativeLayout relativeLayout,
+                             TextView switchError, TextView mSee, TextView title, TextView content,
+                             int state, int position);
     }
 
+    /**
+     * setOnChilkLisener
+     * @param onChilkLisener onChilkLisener
+     */
     public void setOnChilkLisener(onChilkLisener onChilkLisener) {
         this.onChilkLisener = onChilkLisener;
     }
 
-    //点击条目监听
+    /**
+     * 点击条目监听
+     */
     private onItemSeeLisener onItemSeeLisener;
 
     public interface onItemSeeLisener {
+        /**
+         * OnLisener
+         */
         void OnLisener();
     }
 
+    /**
+     * setOnItemSeeLisener
+     * @param onItemSeeLisener onItemSeeLisener
+     */
     public void setOnItemSeeLisener(onItemSeeLisener onItemSeeLisener) {
         this.onItemSeeLisener = onItemSeeLisener;
     }

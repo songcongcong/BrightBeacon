@@ -24,22 +24,40 @@ import okhttp3.RequestBody;
  * @author
  * @data 2019/9/22
  */
-public class RegionErrorPersenterImpl extends BasePresenterImpl<RegionErrorUiinterface> implements RegionErrorPersenter {
+public class RegionErrorPersenterImpl extends BasePresenterImpl<RegionErrorUiinterface>
+        implements RegionErrorPersenter {
+    /**
+     * 构造器
+     */
     @Inject
     public RegionErrorPersenterImpl() {
     }
+
+    /**
+     * biz
+     */
     @Inject
     RegionErrorBiz biz;
 
+    /**
+     * setUiinterface
+     * @param uiinterface uiinterface
+     */
     public void setUiinterface(RegionErrorUiinterface uiinterface) {
         this.uiinterface = uiinterface;
     }
 
+    /**
+     * uiinterface
+     */
     private RegionErrorUiinterface uiinterface;
-
+    /**
+     * mDisposable
+     */
     private Disposable mDisposable;
+
     @Override
-    public void updateImg(Context context,String filePath) {
+    public void updateImg(Context context, String filePath) {
 //        MultipartBody.Builder builder = new MultipartBody.Builder()
 //                .setType(MultipartBody.FORM);//表单类型
         //   for (int i = 0; i < list.size(); i++) {
@@ -60,13 +78,13 @@ public class RegionErrorPersenterImpl extends BasePresenterImpl<RegionErrorUiint
                     @Override
                     public void onNext(PictureInfo pictureInfo) {
                         uiinterface.updataimgSuccess(pictureInfo);
-                        Log.d("song","上传成功："+pictureInfo.toString());
+                        Log.d("song", "上传成功：" + pictureInfo.toString());
                         mDisposable.dispose();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("song","上传失败："+e.toString());
+                        Log.d("song", "上传失败：" + e.toString());
 
                     }
 
@@ -98,7 +116,7 @@ public class RegionErrorPersenterImpl extends BasePresenterImpl<RegionErrorUiint
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("song","请求视频失败："+e.toString());
+                        Log.d("song", "请求视频失败：" + e.toString());
                     }
 
                     @Override

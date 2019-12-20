@@ -21,24 +21,52 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * RerrorListActivity
+ */
 public class RerrorListActivity extends BaseActivity {
-
+    /**
+     * ivHeaderBack
+     */
     @BindView(R.id.iv_header_back)
     ImageView ivHeaderBack;
+    /**
+     * relayBack
+     */
     @BindView(R.id.relay_back)
     RelativeLayout relayBack;
+    /**
+     * tvBackHeader
+     */
     @BindView(R.id.tv_back_header)
     TextView tvBackHeader;
+    /**
+     * ivHeader
+     */
     @BindView(R.id.iv_header)
     ImageView ivHeader;
+    /**
+     * errorRecycle
+     */
     @BindView(R.id.error_recycle)
     RecyclerView errorRecycle;
+    /**
+     * tvSubmitResult
+     */
     @BindView(R.id.tv_submit_result)
     TextView tvSubmitResult;
-
+    /**
+     * mList
+     */
     private List<String> mList = Arrays.asList("电源异常", "电源异常", "电源异常", "电源异常", "电源异常", "电源异常", "电源异常", "电源异常");
-    private String[] mImg = {"http://avatar.csdn.net/4/E/8/1_ylscp.jpg", "http://avatar.csdn.net/4/E/8/1_ylscp.jpg", "http://avatar.csdn.net/4/E/8/1_ylscp.jpg", "http://avatar.csdn.net/4/E/8/1_ylscp.jpg",
-            "http://avatar.csdn.net/4/E/8/1_ylscp.jpg", "http://avatar.csdn.net/4/E/8/1_ylscp.jpg", "http://avatar.csdn.net/4/E/8/1_ylscp.jpg", "http://avatar.csdn.net/4/E/8/1_ylscp.jpg"};
+    /**
+     * mImg
+     */
+    private String[] mImg = {"http://avatar.csdn.net/4/E/8/1_ylscp.jpg",
+            "http://avatar.csdn.net/4/E/8/1_ylscp.jpg", "http://avatar.csdn.net/4/E/8/1_ylscp.jpg",
+            "http://avatar.csdn.net/4/E/8/1_ylscp.jpg",
+            "http://avatar.csdn.net/4/E/8/1_ylscp.jpg", "http://avatar.csdn.net/4/E/8/1_ylscp.jpg",
+            "http://avatar.csdn.net/4/E/8/1_ylscp.jpg", "http://avatar.csdn.net/4/E/8/1_ylscp.jpg"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

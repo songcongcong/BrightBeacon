@@ -14,14 +14,26 @@ import dagger.Provides;
  */
 @Module  //提供依赖对象的实例 （module是个容器）
 public class ApplicationModule {
+    /**
+     * myApplication
+     */
     private MyApplication myApplication;
-    //构造方法
+
+    /**
+     * 构造方法
+     * @param application application
+     */
     public ApplicationModule(MyApplication application) {
         this.myApplication = application;
     }
-    @Provides //关键字，标明该方法提供依赖对象
+
+    /**
+     * 关键字，标明该方法提供依赖对象
+     * @return Context
+     */
+    @Provides
     @PerApp
-    public Context provideApplicatinContext(){
+    public Context provideApplicatinContext() {
         return myApplication.getApplicationContext();
     }
 

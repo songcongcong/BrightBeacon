@@ -10,14 +10,27 @@ import com.brtbeacon.sdk.utils.L;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.yizutiyu.brightbeacon.di.compontent.DaggerApplicationCompontent;
 import com.yizutiyu.brightbeacon.di.module.ApplicationModule;
-import com.yizutiyu.brightbeacon.mvp.ui.ScanActivity;
 import com.yizutiyu.brightbeacon.sqlite.DatabaseUtils;
 
-
+/**
+ * MyApplication
+ */
 public class MyApplication extends Application {
+    /**
+     * instance
+     */
     private static MyApplication instance;
+    /**
+     * handler
+     */
     protected static Handler handler;
+    /**
+     * mainThreadId
+     */
     protected static int mainThreadId;
+    /**
+     * beaconManager
+     */
     private BRTBeaconManager beaconManager;
 
     @Override
@@ -38,10 +51,13 @@ public class MyApplication extends Application {
         // 注册应用 APPKEY申请地址 http://brtbeacon.com/main/index.shtml   "09ac5cf5145a493c8945454395c4c347"
 //        beaconManager.registerApp("00000000000000000000000000000000");
 //        beaconManager.startService();
-        DatabaseUtils.initHelper(this,"brt");
+        DatabaseUtils.initHelper(this, "brt");
 
     }
 
+    /**
+     * initApplicationCompontent
+     */
     private void initApplicationCompontent() {
         DaggerApplicationCompontent.builder()
                 .applicationModule(new ApplicationModule(this))
@@ -66,7 +82,10 @@ public class MyApplication extends Application {
         return mainThreadId;
     }
 
-
+    /**
+     * instance
+     * @return MyApplication
+     */
     public static MyApplication instance() {
         return instance;
     }

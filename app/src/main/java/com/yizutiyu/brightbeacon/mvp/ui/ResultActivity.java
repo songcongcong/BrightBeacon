@@ -3,7 +3,6 @@ package com.yizutiyu.brightbeacon.mvp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,7 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yizutiyu.brightbeacon.R;
-import com.yizutiyu.brightbeacon.activity.MainActivity;
 import com.yizutiyu.brightbeacon.base.BaseActivity;
 
 import java.util.ArrayList;
@@ -19,27 +17,58 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * ResultActivity
+ */
 public class ResultActivity extends BaseActivity {
-
+    /**
+     * tvSuccess
+     */
     @BindView(R.id.tv_success)
     TextView tvSuccess;
+    /**
+     * relayResult
+     */
     @BindView(R.id.relay_result)
     RelativeLayout relayResult;
+    /**
+     * imgSc
+     */
     @BindView(R.id.img_sc)
     ImageView imgSc;
+    /**
+     * tvScTitle
+     */
     @BindView(R.id.tv_sc_title)
     TextView tvScTitle;
+    /**
+     * tvSuccessTime
+     */
     @BindView(R.id.tv_success_time)
     TextView tvSuccessTime;
+    /**
+     * linSc
+     */
     @BindView(R.id.lin_sc)
     LinearLayout linSc;
+    /**
+     * tvError
+     */
     @BindView(R.id.tv_error)
     TextView tvError;
+    /**
+     * linearError
+     */
     @BindView(R.id.linear_error)
     LinearLayout linearError;
+    /**
+     * tvResult
+     */
     @BindView(R.id.tv_result)
     TextView tvResult;
-    // 记录异常状态
+    /**
+     * 记录异常状态
+     */
     private int mCount = 0;
 
     @Override

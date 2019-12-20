@@ -16,8 +16,13 @@ import com.yizutiyu.brightbeacon.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 扫描适配器
+ */
 public class BeaconViewAdapter extends RecyclerView.Adapter<BeaconViewAdapter.BeaconViewHolder> {
-
+    /**
+     * beaconList
+     */
     private List<BRTBeacon> beaconList = new ArrayList<>();
 
     @NonNull
@@ -39,6 +44,10 @@ public class BeaconViewAdapter extends RecyclerView.Adapter<BeaconViewAdapter.Be
         return beaconList.size();
     }
 
+    /**
+     * 添加数据，并刷新
+     * @param beacons beacons
+     */
     public void replaceAll(List<BRTBeacon> beacons) {
         beaconList.clear();
         if (beacons != null) {
@@ -47,18 +56,47 @@ public class BeaconViewAdapter extends RecyclerView.Adapter<BeaconViewAdapter.Be
         notifyDataSetChanged();
     }
 
+    /**
+     * ViewHolder
+     */
     public class BeaconViewHolder extends RecyclerView.ViewHolder {
-
+        /**
+         * beacon
+         */
         private BRTBeacon beacon;
-
+        /**
+         * tvRssi
+         */
         TextView tvRssi;
+        /**
+         * tvName
+         */
         TextView tvName;
+        /**
+         * tvAddr
+         */
         TextView tvAddr;
+        /**
+         * tvMajor
+         */
         TextView tvMajor;
+        /**
+         * tvMinor
+         */
         TextView tvMinor;
+        /**
+         * tvUuid
+         */
         TextView tvUuid;
+        /**
+         * mLinear
+         */
         private final LinearLayout mLinear;
 
+        /**
+         * BeaconViewHolder
+         * @param itemView itemView
+         */
         public BeaconViewHolder(View itemView) {
             super(itemView);
             tvRssi = itemView.findViewById(R.id.device_rssi);
@@ -70,14 +108,22 @@ public class BeaconViewAdapter extends RecyclerView.Adapter<BeaconViewAdapter.Be
             mLinear = itemView.findViewById(R.id.item_linear);
         }
 
+        /**
+         * bind
+         * @param beacon beacon
+         */
         public void bind(BRTBeacon beacon) {
             this.beacon = beacon;
             updateView();
         }
 
+        /**
+         * 刷新UI
+         */
         private void updateView() {
-            if (beacon == null)
+            if (beacon == null) {
                 return;
+            }
             tvRssi.setText(String.valueOf(beacon.getRssi()));
             tvName.setText(String.valueOf(beacon.getName()));
             tvAddr.setText(beacon.getMacAddress());
@@ -95,13 +141,28 @@ public class BeaconViewAdapter extends RecyclerView.Adapter<BeaconViewAdapter.Be
         }
     }
 
-    //点击条目接口回调
+    /**
+     * 点击条目接口回调
+     */
     private onItemViewListener onItemViewListener;
 
+    /**
+     * 定义接口
+     */
     public interface onItemViewListener {
+        /**
+         * onItemListener
+         * @param mAdress mAdress
+         * @param name name
+         * @param brtBeacon brtBeacon
+         */
         void onItemListener(String mAdress, String name, BRTBeacon brtBeacon);
     }
 
+    /**
+     * setOnItemViewListener
+     * @param onItemViewListener onItemViewListener
+     */
     public void setOnItemViewListener(onItemViewListener onItemViewListener) {
         this.onItemViewListener = onItemViewListener;
     }

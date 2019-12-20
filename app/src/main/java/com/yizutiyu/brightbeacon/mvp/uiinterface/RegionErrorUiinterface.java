@@ -9,6 +9,15 @@ import com.yizutiyu.brightbeacon.info.VideoInfo;
  * @data 2019/9/22
  */
 public interface RegionErrorUiinterface extends BaseUiInterface {
+    /**
+     * updataimgSuccess
+     * @param pictureInfo pictureInfo
+     */
     void updataimgSuccess(PictureInfo pictureInfo);
+
+    /**
+     * uploadVideoSuccess
+     * @param videoInfo videoInfo
+     */
     void uploadVideoSuccess(VideoInfo videoInfo);
 }

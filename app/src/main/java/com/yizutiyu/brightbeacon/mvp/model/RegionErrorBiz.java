@@ -19,6 +19,9 @@ import okhttp3.MultipartBody;
  * @data 2019/9/22
  */
 public class RegionErrorBiz {
+    /**
+     * RegionErrorBiz
+     */
     @Inject
     public RegionErrorBiz() {
     }
@@ -39,7 +42,7 @@ public class RegionErrorBiz {
      * 上传录制视频
      * @param context context
      * @param file file
-     * @return
+     * @return VideoInfo
      */
     public Observable<VideoInfo> uploadVideo(Context context, MultipartBody.Part file) {
         return RetrofitSource.createApi(RetrofitApi.class, context)

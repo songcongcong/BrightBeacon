@@ -16,12 +16,29 @@ import com.yizutiyu.brightbeacon.R;
 
 import java.util.List;
 
+/**
+ * RerrorListAdapter
+ */
 public class RerrorListAdapter extends RecyclerView.Adapter<RerrorListAdapter.MyViewHolder> {
-
+    /**
+     * mList
+     */
     private List<String> mList;
+    /**
+     * mImag
+     */
     private String[] mImag;
+    /**
+     * mContext
+     */
     private Activity mContext;
 
+    /**
+     * RerrorListAdapter
+     * @param mList mList
+     * @param mImag mImag
+     * @param mContext mContext
+     */
     public RerrorListAdapter(List<String> mList, String[] mImag, Activity mContext) {
         this.mList = mList;
         this.mImag = mImag;
@@ -60,13 +77,31 @@ public class RerrorListAdapter extends RecyclerView.Adapter<RerrorListAdapter.My
         return mList.size();
     }
 
+    /**
+     * MyViewHolder
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
+        /**
+         * mImg
+         */
         private final SimpleDraweeView mImg;
+        /**
+         * mTitle
+         */
         private final TextView mTitle;
+        /**
+         * mContent
+         */
         private final TextView mContent;
+        /**
+         * mDetail
+         */
         private final TextView mDetail;
 
+        /**
+         * MyViewHolder
+         * @param itemView itemView
+         */
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mImg = itemView.findViewById(R.id.error_img);
@@ -76,11 +111,25 @@ public class RerrorListAdapter extends RecyclerView.Adapter<RerrorListAdapter.My
         }
     }
 
-    // 接口回调
+    /**
+     * 接口回调
+     */
     private onItemClickListener onItemClickListener;
-    public interface onItemClickListener{
+
+    /**
+     * onItemClickListener
+     */
+    public interface onItemClickListener {
+        /**
+         * OnClick
+         */
         void OnClick();
     }
+
+    /**
+     * setOnItemClickListener
+     * @param onItemClickListener onItemClickListener
+     */
     public void setOnItemClickListener(RerrorListAdapter.onItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }

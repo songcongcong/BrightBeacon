@@ -2,21 +2,15 @@ package com.yizutiyu.brightbeacon.mvp.impl;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.retrofitmvplibrary.retrofit.BaseObserver;
-import com.google.gson.Gson;
-import com.yizutiyu.brightbeacon.activity.MainActivity;
-import com.yizutiyu.brightbeacon.activity.PatrolAreaActivity;
 import com.yizutiyu.brightbeacon.base.BasePresenterImpl;
 import com.yizutiyu.brightbeacon.info.LoginInfo;
 import com.yizutiyu.brightbeacon.mvp.implinterface.LoginPresenter;
 import com.yizutiyu.brightbeacon.mvp.model.LogBiz;
 import com.yizutiyu.brightbeacon.mvp.uiinterface.LoginUiInterface;
 
-import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -28,20 +22,32 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class LoginPresenterImpl extends BasePresenterImpl<LoginUiInterface> implements LoginPresenter {
-    //获取model层对象biz
+    /**
+     * 获取model层对象biz
+     */
     @Inject
     public LogBiz logBiz;
-
+    /**
+     * loginUiInterface
+     */
     private LoginUiInterface loginUiInterface;
+    /**
+     * mDisposable
+     */
+    private Disposable mDisposable;
 
-    //构造方法，初始化
+    /**
+     * 构造方法，初始化
+     */
     @Inject
     public LoginPresenterImpl() {
     }
 
-    private Disposable mDisposable;
 
-    //设置view层对象
+    /**
+     * 设置view层对象
+     * @param loginUiInterface loginUiInterface
+     */
     public void setLoginUiInterface(LoginUiInterface loginUiInterface) {
         this.loginUiInterface = loginUiInterface;
     }
@@ -60,7 +66,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginUiInterface> impl
                     public void onNext(LoginInfo loginInfo) {
                         loginUiInterface.NormalLoginSucces(loginInfo);
                         mDisposable.dispose();
-                        Log.d("song", "请求成功：" );
+                        Log.d("song", "请求成功：");
 
                     }
 

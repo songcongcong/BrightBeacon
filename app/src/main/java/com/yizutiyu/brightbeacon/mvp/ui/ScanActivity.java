@@ -2,15 +2,11 @@ package com.yizutiyu.brightbeacon.mvp.ui;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
-import android.widget.Toast;
 
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,19 +20,13 @@ import com.yizutiyu.brightbeacon.R;
 import com.yizutiyu.brightbeacon.activity.PatrolAreaActivity;
 import com.yizutiyu.brightbeacon.adapter.BeaconViewAdapter;
 import com.yizutiyu.brightbeacon.base.BaseMvpActivity;
-import com.yizutiyu.brightbeacon.eventbus.BrtBeaconEventBus;
-import com.yizutiyu.brightbeacon.info.BrtBeaconInfo;
 import com.yizutiyu.brightbeacon.mvp.impl.ScanPresenterImpl;
 import com.yizutiyu.brightbeacon.mvp.uiinterface.ScanUiInterface;
-import com.yizutiyu.brightbeacon.sqlite.DataBaseOpenHelper;
 import com.yizutiyu.brightbeacon.sqlite.DatabaseUtils;
-import com.yizutiyu.brightbeacon.utils.AppUtils;
 import com.yizutiyu.brightbeacon.utils.ToastUtils;
 
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -46,12 +36,23 @@ import butterknife.BindView;
  * ScanActivity
  */
 public class ScanActivity extends BaseMvpActivity<ScanPresenterImpl> implements ScanUiInterface {
-
+    /**
+     * TAG
+     */
     private static final String TAG = "ScanActivity";
+    /**
+     * impl
+     */
     @Inject
     ScanPresenterImpl impl;
+    /**
+     * recycle
+     */
     @BindView(R.id.recycle)
     RecyclerView recycle;
+    /**
+     * mBack
+     */
     @BindView(R.id.btn_refresh)
     Button mBack;
     /**
@@ -62,13 +63,19 @@ public class ScanActivity extends BaseMvpActivity<ScanPresenterImpl> implements 
      * mAdapter
      */
     private BeaconViewAdapter mAdapter;
-
+    /**
+     * mBrtBeacon
+     */
     private BRTBeacon mBrtBeacon;
-    private static List<String> list;
-    // 数据库表名
+    /**
+     * 数据库表名
+     */
     public static String mDbTableName = "t_message";
-    // 创建表
-    public static String sql_message = "create table " + mDbTableName + " (id int primary key,longitude varchar(50),lat varchar(50))";
+    /**
+     * 创建表
+     */
+    public static String sql_message = "create table " + mDbTableName
+            + " (id int primary key,longitude varchar(50),lat varchar(50))";
 
     @Override
     protected ScanPresenterImpl initInjector() {
@@ -143,19 +150,25 @@ public class ScanActivity extends BaseMvpActivity<ScanPresenterImpl> implements 
         stopScan();
     }
 
-    // 开始扫描
+    /**
+     *  开始扫描
+     */
     private void startScan() {
         beaconManager.setBRTBeaconManagerListener(scanListener);
         beaconManager.startRanging();
     }
 
-    //结束扫描
+    /**
+     * 结束扫描
+     */
     private void stopScan() {
         beaconManager.stopRanging();
         beaconManager.setBRTBeaconManagerListener(null);
     }
 
-    // 扫描设备监听
+    /**
+     * 扫描设备监听
+     */
     private BRTBeaconManagerListener scanListener = new BRTBeaconManagerListener() {
 
         @Override
@@ -177,13 +190,18 @@ public class ScanActivity extends BaseMvpActivity<ScanPresenterImpl> implements 
         }
     };
 
-    // activity跳转
+    /**
+     * activity跳转
+     * @param context context
+     */
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, ScanActivity.class);
         context.startActivity(intent);
     }
 
-    //检查蓝牙是否开启
+    /**
+     * 检查蓝牙是否开启
+     */
     private void checkBluetoothValid() {
         final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         if (adapter == null) {

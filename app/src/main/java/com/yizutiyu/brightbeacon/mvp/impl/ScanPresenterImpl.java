@@ -18,21 +18,35 @@ import io.reactivex.disposables.Disposable;
  * @data 2019/9/22
  */
 public class ScanPresenterImpl extends BasePresenterImpl<ScanUiInterface> implements ScanPresenter {
+    /**
+     * 构造器
+     */
     @Inject
     public ScanPresenterImpl() {
     }
 
-    //注解M层
+    /**
+     * 注解M层
+     */
     @Inject
     ScanBiz biz;
 
-    //初始化 UI层
+    /**
+     * 初始化 UI层
+     */
     ScanUiInterface uiInterface;
 
+    /**
+     * setUiInterface
+     * @param uiInterface uiInterface
+     */
     public void setUiInterface(ScanUiInterface uiInterface) {
         this.uiInterface = uiInterface;
     }
 
+    /**
+     * mDisposable
+     */
     private Disposable mDisposable;
 
     @Override

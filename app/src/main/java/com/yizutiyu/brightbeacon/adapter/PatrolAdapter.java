@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,26 +19,24 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.brtbeacon.sdk.BRTBeacon;
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.yizutiyu.brightbeacon.R;
-import com.yizutiyu.brightbeacon.base.BaseAdapter;
-import com.yizutiyu.brightbeacon.eventbus.ChangeStateEventBus;
 import com.yizutiyu.brightbeacon.eventbus.RegionNumEventBus;
 import com.yizutiyu.brightbeacon.info.RegionListInfo;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author
+ * @author scc
  * @data 2019/9/21
  */
 public class PatrolAdapter extends RecyclerView.Adapter<PatrolAdapter.ViewHolder> {
+    /**
+     * TAG
+     */
     public static String TAG = "PatrolAdapter";
     /**
      * BRTBeacon
@@ -58,18 +55,13 @@ public class PatrolAdapter extends RecyclerView.Adapter<PatrolAdapter.ViewHolder
      * 存放是否异常状态
      */
     private static Map<Integer, Boolean> mapPosition;
-    private TextView mTvName;
-    private LinearLayout mLinRegion;
-    private TextView mAccountNmae;
-    private CheckBox mStart;
-    private TextView mTvNoState;
-    private TextView mRegionName;
-    private TextView mSee;
-    private ImageView mIvImg;
     /**
      * 巡检完成的数量
      */
     private int mCount;
+    /**
+     * mList
+     */
     private List<RegionListInfo> mList;
     /**
      * 上下文
@@ -101,28 +93,8 @@ public class PatrolAdapter extends RecyclerView.Adapter<PatrolAdapter.ViewHolder
         holder.mTvName.setText(mList.get(position).getRegion());
         String format = String.format(mContext.getResources().getString(R.string.region_name), "张亮");
         holder.mTvRegionNmae.setText(format);
-//        holder.mLinRegion.setFocusable(true);
-//        holder.mTvStart.setFocusable(true);
-//        holder.mTvStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (mSuccess) {
-//                    Iterator<Map.Entry<Integer, Boolean>> it = mCheckBoxMap.entrySet().iterator();
-//                    while (it.hasNext()) {
-//                        Map.Entry<Integer, Boolean> entry = it.next();
-//                        it.remove();//使用迭代器的remove()方法删除元素
-//                    }
-//                }
-//                Log.d(TAG, "删除：" + mCheckBoxMap.toString());
-//                mCheckBoxMap.put(position, true);
-//                Log.d(TAG, "存值：" + mCheckBoxMap.toString());
-//                if (onItemListener != null) {
-//                    onItemListener.onItemListener(position);
-//                }
-//                Log.d(TAG, "不点击传position：" + position);
-//            }
-//        });
-        if (mList.get(position).isFlag() && !TextUtils.isEmpty(mbrt.getMacAddress()) && mList.get(position).getBluetoothKey().equals(mbrt.getMacAddress())) {
+        if (mList.get(position).isFlag() && !TextUtils.isEmpty(mbrt.getMacAddress())
+                && mList.get(position).getBluetoothKey().equals(mbrt.getMacAddress())) {
             holder.mLinRegion.setFocusable(true);
             holder.mTvStart.setFocusable(true);
             holder.mTvStart.setBackground(mContext.getResources().getDrawable(R.drawable.region_bg));
@@ -221,33 +193,58 @@ public class PatrolAdapter extends RecyclerView.Adapter<PatrolAdapter.ViewHolder
         return mList.size();
     }
 
-    // 记录扫描到的设备
+    /**
+     * 记录扫描到的设备
+     * @param brt brt
+     */
     public void setBrt(BRTBeacon brt) {
         this.mbrt = brt;
     }
 
-    //点击监听回调
+    /**
+     * 点击监听回调
+     */
     private onItemListener onItemListener;
 
+    /**
+     * onItemListener
+     */
     public interface onItemListener {
+        /**
+         * onItemListener
+         * @param position position
+         */
         void onItemListener(int position);
     }
 
+    /**
+     * setOnItemListener
+     * @param onItemListener onItemListener
+     */
     public void setOnItemListener(PatrolAdapter.onItemListener onItemListener) {
         this.onItemListener = onItemListener;
     }
 
-    // 用来记录用户是否取消弹窗
+    /**
+     * 用来记录用户是否取消弹窗
+     * @param isSucces isSucces
+     */
     public void setIsSucces(boolean isSucces) {
         this.mSuccess = isSucces;
     }
 
-    // 用来存放异常状态
+    /**
+     * 用来存放异常状态
+     * @param map map
+     */
     public void setMapPosition(Map<Integer, Boolean> map) {
         this.mapPosition = map;
     }
 
-    // 接收数据
+    /**
+     * 接收数据
+     * @param listInfos listInfos
+     */
     public void setDate(List<RegionListInfo> listInfos) {
         this.mList = listInfos;
     }
@@ -266,10 +263,20 @@ public class PatrolAdapter extends RecyclerView.Adapter<PatrolAdapter.ViewHolder
      */
     private onSeeChilk onSeeChilk;
 
+    /**
+     * onSeeChilk
+     */
     public interface onSeeChilk {
+        /**
+         * onItemSeeChilk
+         */
         void onItemSeeChilk();
     }
 
+    /**
+     * setOnSeeChilk
+     * @param onSeeChilk onSeeChilk
+     */
     public void setOnSeeChilk(PatrolAdapter.onSeeChilk onSeeChilk) {
         this.onSeeChilk = onSeeChilk;
     }
@@ -278,18 +285,51 @@ public class PatrolAdapter extends RecyclerView.Adapter<PatrolAdapter.ViewHolder
      * viewHolder
      */
     class ViewHolder extends RecyclerView.ViewHolder {
-
+        /**
+         * mTvName
+         */
         private final TextView mTvName;
+        /**
+         * mLinRegion
+         */
         private final LinearLayout mLinRegion;
+        /**
+         * mIvImg
+         */
         private final ImageView mIvImg;
+        /**
+         * mTvAccountName
+         */
         private final TextView mTvAccountName;
+        /**
+         * mTvStart
+         */
         private final CheckBox mTvStart;
+        /**
+         * mTvNoRegion
+         */
         private final TextView mTvNoRegion;
+        /**
+         * mTvNoState
+         */
         private final TextView mTvNoState;
+        /**
+         * mTvRegionNmae
+         */
         private final TextView mTvRegionNmae;
+        /**
+         * mTvSee
+         */
         private final TextView mTvSee;
+        /**
+         * mRelayout
+         */
         private final RelativeLayout mRelayout;
 
+        /**
+         * ViewHolder
+         * @param  itemView itemView
+         */
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTvName = itemView.findViewById(R.id.tv_name);
@@ -305,7 +345,10 @@ public class PatrolAdapter extends RecyclerView.Adapter<PatrolAdapter.ViewHolder
         }
     }
 
-    //  改变UI
+    /**
+     * 改变UI
+     * @param holder holder
+     */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void refreshUi(ViewHolder holder) {
         holder.mLinRegion.setFocusable(false);

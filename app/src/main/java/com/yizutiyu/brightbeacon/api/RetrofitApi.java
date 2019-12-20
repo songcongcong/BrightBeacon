@@ -26,9 +26,9 @@ public interface RetrofitApi {
     /**
      * 用户登录
      *
-     * @param telephone
-     * @param pwd
-     * @return
+     * @param telephone telephone
+     * @param pwd pwd
+     * @return LoginInfo
      */
     @POST("ezapp/login2")
     @FormUrlEncoded
@@ -40,7 +40,7 @@ public interface RetrofitApi {
      *
      * @param key  key
      * @param name name
-     * @return
+     * @return String
      */
     @POST("ezapp/inspection/saveInspectionBluetoothMessage")
     @FormUrlEncoded
@@ -49,30 +49,51 @@ public interface RetrofitApi {
 
     /**
      * 设备列表页
-     *
-     * @return
+     * @param name name
+     * @return BaseResponse<List<RegionListInfo>>
      */
     @POST("ezapp/inspection/getInspectionBluetoothMessage")
     @FormUrlEncoded
     Observable<BaseResponse<List<RegionListInfo>>> getRegionList(@Field("id") String name);
 
-    // 添加设备接口
+    /**
+     * 添加设备接口
+     * @param key key
+     * @param name name
+     * @return  SuccessInfo
+     */
     @POST("ezapp/inspection/saveInspectionBluetoothMessage")
     @FormUrlEncoded
     Observable<SuccessInfo> addRegion(@Field("bluetooth_key") String key,
                                       @Field("region") String name);
 
-    // 上传图片接口
+    /**
+     * 上传图片接口
+     * @param parts parts
+     * @return PictureInfo
+     */
     @POST("ezapp/inspection/uploadImage")
     @Multipart
     Observable<PictureInfo> uploadImg(@Part MultipartBody.Part parts);
 
-    // 上传录制视频接口
+    /**
+     * 上传录制视频接口
+     * @param parts parts
+     * @return VideoInfo
+     */
     @POST("ezapp/inspection/uploadVideo")
     @Multipart
     Observable<VideoInfo> uploadVideo(@Part MultipartBody.Part parts);
 
-    // 提交巡检结果
+    /**
+     * 提交巡检结果
+     * @param message message
+     * @param startTime startTime
+     * @param endTime endTime
+     * @param state state
+     * @param detail detail
+     * @return SuccessInfo
+     */
     @POST("ezapp/inspection/saveInspectionMessage")
     @FormUrlEncoded
     Observable<SuccessInfo> submitResult(@Field("message") String message,
@@ -80,7 +101,12 @@ public interface RetrofitApi {
                                          @Field("end_time") String endTime,
                                          @Field("state") String state,
                                          @Field("detail") String detail);
-    // 提交巡检结果
+
+    /**
+     * 提交巡检结果
+     * @param face face
+     * @return FaceDateMessageInfo
+     */
     @POST("ezapp/inspection/getInspectionFaceCompare")
     @FormUrlEncoded
     Observable<FaceDateMessageInfo> getFaceData(@Field("faceId") String face);

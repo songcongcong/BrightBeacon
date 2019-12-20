@@ -11,12 +11,23 @@ import dagger.Provides;
  */
 @Module
 public class FragmentModule {
-
+    /**
+     * mFragment
+     */
     private Fragment mFragment;
 
-    public FragmentModule (Fragment fragment) {
-        this.mFragment =fragment;
+    /**
+     * FragmentModule
+     * @param fragment fragment
+     */
+    public FragmentModule(Fragment fragment) {
+        this.mFragment = fragment;
     }
+
+    /**
+     * provideFragment
+     * @return Fragment
+     */
     @Provides
     public Fragment provideFragment() {
         return mFragment;

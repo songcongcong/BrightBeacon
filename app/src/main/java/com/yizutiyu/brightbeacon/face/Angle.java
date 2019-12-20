@@ -25,9 +25,17 @@ package com.yizutiyu.brightbeacon.face;
 */
 public class Angle extends BaseFace {
 
-	
+	/**
+	 * roll
+	 */
      private String roll;
+	/**
+	 * pitch
+	 */
      private String pitch;
+	/**
+	 * yaw
+	 */
      private String yaw;
 	/**
 	 * @return the roll

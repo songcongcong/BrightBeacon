@@ -10,5 +10,9 @@ import java.util.List;
  */
 
 public interface LoginUiInterface extends BaseUiInterface {
+    /**
+     * NormalLoginSucces
+     * @param loginBean loginBean
+     */
     void NormalLoginSucces(LoginInfo loginBean);
 }

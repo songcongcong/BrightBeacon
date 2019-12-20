@@ -2,7 +2,6 @@ package com.yizutiyu.brightbeacon.mvp.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.yizutiyu.brightbeacon.R;
 import com.yizutiyu.brightbeacon.adapter.ErrorDetailAdapter;
-import com.yizutiyu.brightbeacon.custom.MyHashMap;
 import com.yizutiyu.brightbeacon.utils.ContensUtils;
 
 import java.util.List;
@@ -23,32 +21,73 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * NonomarlContentActivity
+ */
 public class NonomarlContentActivity extends AppCompatActivity {
-
+    /**
+     * ivHeaderBack
+     */
     @BindView(R.id.iv_header_back)
     ImageView ivHeaderBack;
+    /**
+     * relayBack
+     */
     @BindView(R.id.relay_back)
     RelativeLayout relayBack;
+    /**
+     * tvBackHeader
+     */
     @BindView(R.id.tv_back_header)
     TextView tvBackHeader;
+    /**
+     * ivNote
+     */
     @BindView(R.id.iv_note)
     ImageView ivNote;
+    /**
+     * tvErrorSwitch
+     */
     @BindView(R.id.tv_error_switch)
     TextView tvErrorSwitch;
+    /**
+     * tvErrorContent
+     */
     @BindView(R.id.tv_error_content)
     TextView tvErrorContent;
+    /**
+     * rlErrorContent
+     */
     @BindView(R.id.rl_error_content)
     RelativeLayout rlErrorContent;
+    /**
+     * llContent
+     */
     @BindView(R.id.ll_content)
     LinearLayout llContent;
+    /**
+     * viewError
+     */
     @BindView(R.id.view_error)
     View viewError;
+    /**
+     * viewErrorTop
+     */
     @BindView(R.id.view_error_top)
     View viewErrorTop;
+    /**
+     * textviewPicture
+     */
     @BindView(R.id.textview_picture)
     TextView textviewPicture;
+    /**
+     * revyvleview
+     */
     @BindView(R.id.revyvleview)
     RecyclerView revyvleview;
+    /**
+     * tvReturn
+     */
     @BindView(R.id.tv_return)
     TextView tvReturn;
 
