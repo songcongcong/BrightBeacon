@@ -6,6 +6,7 @@ import com.yizutiyu.brightbeacon.info.SuccessInfo;
 import com.yizutiyu.brightbeacon.info.LoginInfo;
 import com.yizutiyu.brightbeacon.info.PictureInfo;
 import com.yizutiyu.brightbeacon.info.RegionListInfo;
+import com.yizutiyu.brightbeacon.info.VideoInfo;
 
 import java.util.List;
 
@@ -65,6 +66,11 @@ public interface RetrofitApi {
     @POST("ezapp/inspection/uploadImage")
     @Multipart
     Observable<PictureInfo> uploadImg(@Part MultipartBody.Part parts);
+
+    // 上传录制视频接口
+    @POST("ezapp/inspection/uploadVideo")
+    @Multipart
+    Observable<VideoInfo> uploadVideo(@Part MultipartBody.Part parts);
 
     // 提交巡检结果
     @POST("ezapp/inspection/saveInspectionMessage")

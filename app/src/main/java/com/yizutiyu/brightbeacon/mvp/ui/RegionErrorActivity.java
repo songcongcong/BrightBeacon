@@ -1,15 +1,12 @@
 package com.yizutiyu.brightbeacon.mvp.ui;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,14 +16,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,10 +30,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.iceteck.silicompressorr.SiliCompressor;
 import com.yizutiyu.brightbeacon.R;
 import com.yizutiyu.brightbeacon.adapter.ErrorPictureAdapter;
 import com.yizutiyu.brightbeacon.base.BaseMvpActivity;
 import com.yizutiyu.brightbeacon.info.PictureInfo;
+import com.yizutiyu.brightbeacon.info.VideoInfo;
 import com.yizutiyu.brightbeacon.mvp.impl.RegionErrorPersenterImpl;
 import com.yizutiyu.brightbeacon.mvp.uiinterface.RegionErrorUiinterface;
 import com.yizutiyu.brightbeacon.utils.ContensUtils;
@@ -46,13 +43,18 @@ import com.yizutiyu.brightbeacon.utils.FileUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.reactivex.functions.Consumer;
+import cn.jzvd.JZVideoPlayer;
+import cn.jzvd.JZVideoPlayerStandard;
 
 
 /**
@@ -91,6 +93,10 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
      */
     private List<Integer> mList;
     /**
+     * 视频集合
+     */
+    private List<String> mVideoList;
+    /**
      * mImg ,从本地获取图片展示
      */
     private ImageView mImg;
@@ -122,6 +128,10 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
      * 小米裁剪回调
      */
     private static final int CROP_SMALL_PICTURE_MIUI = 103;//小米裁剪
+    /**
+     * 选择录制视频
+     */
+    private static final int RC_CHOOSE_VIDEO = 104;
     /**
      * file 相机回调的路径
      */
@@ -156,14 +166,47 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
      * 判断上传图片是否请求成功
      */
     private boolean isRequestSuccess;
+    /**
+     * 是否点击选择图片
+     */
+    private boolean isRequestPicture;
+    /**
+     * 是否点击选择录制视频
+     */
+    private boolean isRequestVideo;
 
-    // 图片选择器显示的数量
+    /**
+     * 图片选择器显示的数量
+     */
     private int maxSelectNum = 9;
-
-//    // 存放图片的集合
-//    private List<LocalMedia> selectList = new ArrayList<>();
-//    private PopupWindow popupWindow;
-//    private GridImageAdapter mAdapter;
+    /**
+     * 录制视频
+     */
+    private TextView mVideo;
+    /**
+     * 录制视频返回的路径
+     */
+    private String temp;
+    /**
+     * 录制视频存储的路径
+     */
+    private File mVideoFile;
+    /**
+     * 巡检异常的适配器
+     */
+    private ErrorPictureAdapter mAdapter;
+    /**
+     * 视频播放器（MP4）
+     */
+    private JZVideoPlayerStandard mVideoView;
+    /**
+     * 录制视频上传成功标志
+     */
+    private boolean isVideoResult;
+    /**
+     * 视频录制压缩后的视频路径，以便于上传到服务器
+     */
+    private String comPressPath;
 
     @Override
     protected RegionErrorPersenterImpl initInjector() {
@@ -179,7 +222,7 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
     @Override
     protected void findViews(Bundle savedInstanceState) {
         impl.setUiinterface(this);
-
+        mVideoList = new ArrayList<>();
         tvBackHeader.setText("巡检异常上报");
 
         // 保存拍照路径
@@ -202,65 +245,41 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
         mList.add(R.mipmap.ic_tianjia);
         mList.add(R.mipmap.ic_tianjia);
         mList.add(R.mipmap.ic_tianjia);
-//
-//        FullyGridLayoutManager manager = new FullyGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
-//        recycleView.setLayoutManager(manager);
-//        mAdapter = new GridImageAdapter(this, onAddPicClickListener);
-//        mAdapter.setList(selectList);
-//        mAdapter.setSelectMax(maxSelectNum);
-//        recycleView.setAdapter(mAdapter);
-//        mAdapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position, View v) {
-//                if (selectList.size() > 0) {
-//                    LocalMedia media = selectList.get(position);
-//                    String pictureType = media.getPictureType();
-//                    int mediaType = PictureMimeType.pictureToVideo(pictureType);
-//                    switch (mediaType) {
-//                        case 1:
-//                            // 预览图片 可自定长按保存路径
-//                            //PictureSelector.create(MainActivity.this).externalPicturePreview(position, "/custom_file", selectList);
-//                            PictureSelector.create(RegionErrorActivity.this).externalPicturePreview(position, selectList);
-//                            break;
-//                        case 2:
-//                            // 预览视频
-//                            PictureSelector.create(RegionErrorActivity.this).externalPictureVideo(media.getPath());
-//                            break;
-//                        case 3:
-//                            // 预览音频
-//                            PictureSelector.create(RegionErrorActivity.this).externalPictureAudio(media.getPath());
-//                            break;
-//                    }
-//                }
-//            }
-//        });
 
-        ErrorPictureAdapter mAdapter = new ErrorPictureAdapter(R.layout.picture_layout_item, mList);
+        mAdapter = new ErrorPictureAdapter(this, mList);
         recycleView.setLayoutManager(new GridLayoutManager(this, 3));
         recycleView.setAdapter(mAdapter);
 
         mAdapter.setOnItemChilkLisener(new ErrorPictureAdapter.onItemChilkLisener() {
             @Override
-            public void OnLisener(ImageView imageView) {
+            public void OnLisener(ImageView imageView, JZVideoPlayerStandard videoView) {
                 mImg = imageView;
+                mVideoView = videoView;
                 getPopup();
             }
         });
 
         // 点击提交
         subscribeClick(tvSubmit, o -> {
-            if (isRequestSuccess) {
-                if (mMagList != null) {
+            if (isRequestSuccess || isVideoResult) {
+                if (mMagList != null || mVideoList != null) {
                     try {
 //                        ContensUtils.setPictureList("pilis", mMagList, config);
 //                        List<String> pilist = ContensUtils.getPictureDataList("pilis", config);
 //                        Log.d("song","32333取出:"+pilist);
-                        // 将存入的图片集合传给 巡检详情页
-                        Intent intent = new Intent();
-                        intent.putStringArrayListExtra("imgList", (ArrayList<String>) mMagList);
-                        setResult(2, intent);
-                        isRequestSuccess = false;
-                        finish();
+                        if ((isRequestSuccess && isVideoResult) || (isRequestPicture && isRequestSuccess && !isRequestVideo)
+                                || (isRequestVideo && isVideoResult && !isRequestPicture)) {
+                            // 将存入的图片集合传给 巡检详情页
+                            Intent intent = new Intent();
+                            intent.putStringArrayListExtra("imgList", (ArrayList<String>) mMagList);
+                            intent.putStringArrayListExtra("videoList", (ArrayList<String>) mVideoList);
+                            setResult(2, intent);
+                            isRequestSuccess = false; // 上传图片成功
+                            isVideoResult = false; // 上传视频成功
+                            isRequestPicture = false; // 点击选择图片的标志
+                            isRequestVideo = false; // 点击选择录制视频的标志
+                            finish();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -274,14 +293,32 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
 
     }
 
+    /**
+     * 图片上传成功
+     *
+     * @param pictureInfo pictureInfo
+     */
     @Override
     public void updataimgSuccess(PictureInfo pictureInfo) {
         mMagList.add(pictureInfo.getImage());
         isRequestSuccess = true;
     }
 
+    /**
+     * 录制视频上传成功
+     *
+     * @param videoInfo videoInfo
+     */
+    @Override
+    public void uploadVideoSuccess(VideoInfo videoInfo) {
+        mVideoList.add(videoInfo.getVideo());
+        isVideoResult = true;
+    }
 
-    // 弹出选择相册或相机弹窗
+
+    /**
+     * 弹出选择相册或相机弹窗或录制视频
+     */
     private void getPopup() {
         View partView = View.inflate(this, R.layout.activity_region_error, null);
         View view = View.inflate(this, R.layout.popup_bottom_layout, null);
@@ -293,34 +330,43 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
         mPicture = view.findViewById(R.id.tv_picture);
         mCamera = view.findViewById(R.id.tv_camera);
         mCancel = view.findViewById(R.id.tv_cancel);
-        mPicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContensUtils.checkAndApplyfPermissionActivity(RegionErrorActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, RC_CHOOSE_PHOTO)) {
-                    choosePhoto();
-                }
+        mVideo = view.findViewById(R.id.tv_video);
+
+        // 选择相册
+        subscribeClick(mPicture, o -> {
+            if (ContensUtils.checkAndApplyfPermissionActivity(RegionErrorActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, RC_CHOOSE_PHOTO)) {
+                choosePhoto();
+                isRequestPicture = true; // 标识点击选择显示图片
             }
         });
 
-        mCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContensUtils.checkAndApplyfPermissionActivity(RegionErrorActivity.this, new String[]{Manifest.permission.CAMERA,
-                                Manifest.permission.READ_EXTERNAL_STORAGE,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        RC_CHOOSE_CAMERA)) {
-                    startCamera();
-                }
+        // 相机拍照
+        subscribeClick(mCamera, o -> {
+            if (ContensUtils.checkAndApplyfPermissionActivity(RegionErrorActivity.this, new String[]{Manifest.permission.CAMERA,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    RC_CHOOSE_CAMERA)) {
+                startCamera();
+                isRequestPicture = true; // 标识点击选择显示图片
             }
         });
 
-        mCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.dismiss();
+        // 录制视频
+        subscribeClick(mVideo, o -> {
+            if (ContensUtils.checkAndApplyfPermissionActivity(RegionErrorActivity.this, new String[]{Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.RECORD_AUDIO}, RC_CHOOSE_VIDEO)) {
+                startVideo();
+                isRequestVideo = true; // 标识点击选择显示录制视频
             }
         });
+
+        // 点击取消按钮
+        subscribeClick(mCancel, o -> {
+            popupWindow.dismiss();
+        });
+        // 点击外部空白处消失
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -331,7 +377,9 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
         popupWindow.showAtLocation(partView, Gravity.BOTTOM, 0, 0);
     }
 
-    //跳转相册页面
+    /**
+     * 跳转相册页面
+     */
     private void choosePhoto() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -345,7 +393,9 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
         startActivityForResult(intent, RC_CHOOSE_PHOTO);
     }
 
-    //打开相机
+    /**
+     * 打开相机
+     */
     public void startCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //改变Uri  com.xykj.customview.fileprovider注意和xml中的一致
@@ -356,6 +406,38 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
         startActivityForResult(intent, RC_CHOOSE_CAMERA);
     }
 
+    /**
+     * 调用相机录制视频
+     */
+    public void startVideo() {
+        try {
+            Uri mVideoUri = null;
+            Intent intent = new Intent();
+            //指定动作，启动相机
+            intent.setAction(MediaStore.ACTION_VIDEO_CAPTURE);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            //创建文件
+            createMediaFile();
+            //添加权限
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                //做一些处理
+                //获取uri
+                mVideoUri = FileProvider.getUriForFile(this, "com.scc.customview.fileprovider", mVideoFile);
+            } else {
+                //在版本低于此的时候，做一些处理
+                mVideoUri = Uri.fromFile(mVideoFile);
+            }
+            //将uri加入到额外数据
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, mVideoUri);
+            intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 15);// 限制录制时间15秒
+            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high  // 比例
+            //启动相机并要求返回结果
+            startActivityForResult(intent, RC_CHOOSE_VIDEO);
+        } catch (Exception e) {
+            Log.d(TAG, "startVideo：" + e.toString());
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -373,6 +455,10 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
                     }
                 }
                 break;
+            case RC_CHOOSE_VIDEO:
+                startVideo();
+                Log.d(TAG, "===========权限回调---用户同意了----录制视频");
+                break;
         }
     }
 
@@ -387,6 +473,8 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
                     filePath = FileUtil.getFilePathByUri(this, uri);
                     // 在控件上进行显示
                     if (!TextUtils.isEmpty(filePath)) {
+                        mImg.setVisibility(View.VISIBLE);
+                        mVideoView.setVisibility(View.GONE);
                         Glide.with(this).load(filePath).into(mImg);
                     }
                     impl.updateImg(this, filePath);
@@ -405,30 +493,26 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
             case CROP_SMALL_PICTURE_MIUI:  // 小米适配----裁剪之后intent系统获取不到，只能显示裁剪之后的图片，而不是从intent中获取
                 setImageMiuiToView();
                 break;
+            case RC_CHOOSE_VIDEO: // 录制视频回调
+                try {
+                    Uri uri = data.getData();
+                    if (uri != null) {
+                        getAudioFilePathFromUri(uri);
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "------视频回调异常--------" + e.toString());
+                }
+                break;
         }
-
-
-
-//        List<LocalMedia> images;
-//        if (resultCode == RESULT_OK) {
-//            if (requestCode == PictureConfig.CHOOSE_REQUEST) {// 图片选择结果回调
-//
-//                images = PictureSelector.obtainMultipleResult(data);
-//                selectList.addAll(images);
-//
-//                //selectList = PictureSelector.obtainMultipleResult(data);
-//
-//                // 例如 LocalMedia 里面返回三种path
-//                // 1.media.getPath(); 为原图path
-//                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
-//                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
-//                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-//                mAdapter.setList(selectList);
-//                mAdapter.notifyDataSetChanged();
-//            }
-//        }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JZVideoPlayer.releaseAllVideos();
+    }
 
     /**
      * 裁剪图片方法实现
@@ -466,31 +550,32 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
 
     /* * 保存裁剪之后的图片数据
      *
-     * @param
+     * @param data data
      */
     protected void setImageToView(Intent data) {
-        Log.d("song", "huisdsdf：" + data);
         Bundle extras = data.getExtras();
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
 //            Utils utils = new Utils();
 //            photo = utils.toRoundBitmap(photo); // 这个时候的图片已经被处理成圆形的了
+            mVideoView.setVisibility(View.GONE);
+            mImg.setVisibility(View.VISIBLE);
             mImg.setImageBitmap(photo);
             File file = FileUtil.getFile(photo);
-            Log.d("song", "返回图片：" + file.toString() + ",:" + file.getName());
             impl.updateImg(this, file.toString());
         }
     }
 
-    /* * 保存裁剪之后的图片数据----适配小米
-     *
-     * @param
+    /* *
+     * 保存裁剪之后的图片数据----适配小米
      */
     protected void setImageMiuiToView() {
         //将Uri图片转换为Bitmap
         Bitmap bitmap = null;
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uritempFile));
+            mVideoView.setVisibility(View.GONE);
+            mImg.setVisibility(View.VISIBLE);
             mImg.setImageBitmap(bitmap);
             File file = FileUtil.getFile(bitmap);
             impl.updateImg(this, file.toString());
@@ -498,4 +583,77 @@ public class RegionErrorActivity extends BaseMvpActivity<RegionErrorPersenterImp
             e.printStackTrace();
         }
     }
+
+    /**
+     * 通过Uri，获取录音文件的路径（绝对路径）
+     *
+     * @param uri 录音文件的uri
+     * @return 录音文件的路径（String）
+     */
+    private void getAudioFilePathFromUri(Uri uri) {
+        Cursor cursor = getContentResolver()
+                .query(uri, null, null, null, null);
+        if (cursor.moveToNext()) {
+            int columnIndexOrThrow = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+            temp = cursor.getString(columnIndexOrThrow);
+            Log.d(TAG, " 路径为空：" + temp);
+            cursor.close();
+        }
+//        cursor.moveToFirst();
+        if (temp != null) {
+            if (!TextUtils.isEmpty(temp)) {
+                mImg.setVisibility(View.GONE);
+                mVideoView.setVisibility(View.VISIBLE);
+                mVideoView.setUp(temp
+                        , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, temp);
+                mVideoView.thumbImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//                                jzVideoPlayerStandard.thumbImageView.setImage("http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640");
+            }
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    /**
+                     * 视频压缩
+                     * 第一个参数:视频源文件路径
+                     * 第二个参数:压缩后视频保存的路径
+                     */
+                    try {
+                        comPressPath = SiliCompressor.with(RegionErrorActivity.this).compressVideo(temp, mVideoFile.getAbsolutePath());
+                        Log.d("song", "返回正--URISyntaxException：" + comPressPath);
+                        try {
+                            impl.uploadVideo(RegionErrorActivity.this, comPressPath);
+                        } catch (Exception e) {
+                            Log.d("song", "返回异常：" + e.toString());
+                        }
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                        Log.d("song", "返回异常--URISyntaxException：" + e.toString());
+                    }
+                }
+            }.start();
+        }
+    }
+
+
+    /**
+     * 创建视频本地文件
+     *
+     * @return File File
+     * @throws IOException
+     */
+    private File createMediaFile() throws IOException {
+        mVideoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), "CameraDemo");
+        if (!mVideoFile.exists()) {
+            if (!mVideoFile.mkdirs()) {
+                return null;
+            }
+        }
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "VID_" + timeStamp;
+        String suffix = ".mp4";
+        File mediaFile = new File(mVideoFile + File.separator + imageFileName + suffix);
+        return mediaFile;
+    }
+
 }

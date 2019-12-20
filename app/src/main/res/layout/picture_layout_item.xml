@@ -9,4 +9,14 @@
         android:layout_height="@dimen/y100"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/y10"/>
+
+    <cn.jzvd.JZVideoPlayerStandard
+        android:id="@+id/jd_view"
+        android:layout_width="@dimen/x100"
+        android:layout_height="@dimen/y100"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/y10"
+        android:visibility="gone"></cn.jzvd.JZVideoPlayerStandard>
+
+
 </RelativeLayout>

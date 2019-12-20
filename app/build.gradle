@@ -61,4 +61,11 @@ dependencies {
 
     /*PictureSelector  图片选择器*/
 //    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+
+    // ijkplayer播放器
+    implementation 'com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.5'
+    // 节操播放器
+    implementation 'cn.jzvd:jiaozivideoplayer:6.0.0'
+
+    implementation 'com.iceteck.silicompressorr:silicompressor:2.2.2'
 }

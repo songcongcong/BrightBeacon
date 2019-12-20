@@ -490,7 +490,6 @@ public class PatrolAreaActivity extends BaseMvpActivity<PatrolPresneterImpl> imp
         @Override
         public void onRegion(BRTBeacon beacon, BRTRegion region, final int state) {
             Log.e(TAG, "监听通知");
-            Log.d("song","监听通知");
             String toastMsg;
             if (state == 0) {
                 toastMsg = "离开Beacon：" + beacon.name + "地址：" + beacon.getMacAddress() + "所在区域!";

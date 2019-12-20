@@ -10,4 +10,5 @@ import okhttp3.MultipartBody;
  */
 public interface RegionErrorPersenter {
     void updateImg(Context context, String file);
+    void uploadVideo(Context context, String file);
 }

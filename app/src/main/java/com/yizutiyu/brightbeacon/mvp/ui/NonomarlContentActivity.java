@@ -82,6 +82,7 @@ public class NonomarlContentActivity extends AppCompatActivity {
 //            Log.d("song","遍历："+myHashMaps.get(i));
 //        }
         List<String> mList = ContensUtils.getPictureDataList("errorImglist", config);
+        List<String> mVideoList = ContensUtils.getPictureDataList("errorVideolist", config);
         if (mList.size() > 0) {
             ErrorDetailAdapter errorDetailsAdapter = new ErrorDetailAdapter(R.layout.picture_layout_item, mList);
             revyvleview.setLayoutManager(new GridLayoutManager(this, 3));

@@ -8,16 +8,15 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.retrofitmvplibrary.BuildConfig;
-import com.example.retrofitmvplibrary.MyApplication;
 import com.example.retrofitmvplibrary.utils.NetWorkConstants;
 import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
-import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
@@ -102,11 +101,14 @@ public class RetrofitSource {
     }
 
     public static <T> T createApi(Class<T> clazz, Context context) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(NetWorkConstants.MURL)
                 .client(getInstance(context))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         return retrofit.create(clazz);
     }

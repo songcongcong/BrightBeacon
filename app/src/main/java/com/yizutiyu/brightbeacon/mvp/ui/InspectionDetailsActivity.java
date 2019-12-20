@@ -87,6 +87,11 @@ public class InspectionDetailsActivity extends BaseActivity {
      * 上传图片结合
      */
     private List<String> imgLists;
+
+    /**
+     * 上传视频结合
+     */
+    private List<String> videoLists;
     /**
      * 记录异常状态
      */
@@ -231,6 +236,7 @@ public class InspectionDetailsActivity extends BaseActivity {
                 // 选择图片页面的回调
                 if (data != null) {
                     imgLists = data.getStringArrayListExtra("imgList");
+                    videoLists = data.getStringArrayListExtra("videoList");
                 }
                 index++;
                 if (mLinear != null && mRelayout != null && mError != null && mSwitchSee != null) {
@@ -269,6 +275,25 @@ public class InspectionDetailsActivity extends BaseActivity {
                 map.put("image", sb.toString());
             } else {
                 map.put("image", "");
+            }
+        }
+        /**
+         * 存放视频路径
+         */
+        if (videoLists != null) {
+            StringBuilder sb = new StringBuilder();
+            for (String dataBean : videoLists) {
+                if (sb.length() > 0) {
+                    sb.append(",");
+                }
+                sb.append(dataBean);
+            }
+            // 存放异常的图片
+            if (isError) {
+                ContensUtils.setPictureList("errorVideolist", videoLists, config);
+                map.put("video", sb.toString());
+            } else {
+                map.put("video", "");
             }
         }
         mapList.add(map);

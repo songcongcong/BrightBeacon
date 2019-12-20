@@ -27,7 +27,7 @@ public class NetWorkConstants {
      * 请求URL
      */
 //    public   static String MURL = "https://oper.yizutiyu.com/";
-    public   static String MURL = "http://192.168.0.106/";
+    public   static String MURL = "http://192.168.0.102/";
 //    public static String MURL = "https://dev.yizutiyu.com/";
 
 

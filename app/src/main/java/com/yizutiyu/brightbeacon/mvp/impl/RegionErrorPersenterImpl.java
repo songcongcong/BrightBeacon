@@ -5,12 +5,12 @@ import android.util.Log;
 
 import com.yizutiyu.brightbeacon.base.BasePresenterImpl;
 import com.yizutiyu.brightbeacon.info.PictureInfo;
+import com.yizutiyu.brightbeacon.info.VideoInfo;
 import com.yizutiyu.brightbeacon.mvp.implinterface.RegionErrorPersenter;
 import com.yizutiyu.brightbeacon.mvp.model.RegionErrorBiz;
 import com.yizutiyu.brightbeacon.mvp.uiinterface.RegionErrorUiinterface;
 
 import java.io.File;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -76,4 +76,37 @@ public class RegionErrorPersenterImpl extends BasePresenterImpl<RegionErrorUiint
                     }
                 });
     }
+
+    @Override
+    public void uploadVideo(Context context, String file) {
+        File filepath = new File(file);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), filepath);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("file", filepath.getName(), requestBody);
+
+        biz.uploadVideo(context, part)
+                .subscribe(new Observer<VideoInfo>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mDisposable = d;
+                    }
+
+                    @Override
+                    public void onNext(VideoInfo videoInfo) {
+                        uiinterface.uploadVideoSuccess(videoInfo);
+                        mDisposable.dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("song","请求视频失败："+e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+
 }
